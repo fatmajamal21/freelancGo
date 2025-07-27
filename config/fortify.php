@@ -27,9 +27,31 @@ return [
     | of your password brokers setup in your "auth" configuration file.
     |
     */
+    'passwords' => [
+        'users', // الافتراضي
 
-    'passwords' => 'users',
+        // دعم الحراس المخصصين
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
 
+        'freelancers' => [
+            'provider' => 'freelancers',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'users' => [
+            'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+    ],
     /*
     |--------------------------------------------------------------------------
     | Username / Email

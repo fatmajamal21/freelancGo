@@ -60,7 +60,9 @@
                     </div>
 
                     <div class="signup-link">
-                        ليس لديك حساب؟ <a href="register.html">إنشاء حساب جديد</a>
+                       @if ($guard !== 'admin')
+                       <a href="{{ route($guard . '.register') }}">إنشاء حساب جديد</a>
+                    @endif
                     </div>
                 </form>
             </div>

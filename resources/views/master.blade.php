@@ -6,9 +6,9 @@
     <title>تسجيل الدخول - FreelanGo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link href="{{ asset('assets-dash/css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets-dash/css/pages.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets-dash/css/responsive.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets_dash/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets_dash/css/pages.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets_dash/css/responsive.css') }}" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
@@ -27,7 +27,10 @@
             </div>
 
             <div class="navbar-actions">
-                <a href="register.html" class="btn-apply"><i class="fas fa-user-plus"></i> إنشاء حساب</a>
+                @if ($guard !== 'admin')
+   <a href="register.html" class="btn-apply"><i class="fas fa-user-plus"></i> إنشاء حساب</a>
+@endif
+             
             </div>
         </div>
     </nav>
@@ -74,6 +77,6 @@
             </div>
         </div>
     </footer>
-   <script src="{{ asset('assets-dash/js/app.js') }}"></script>
+   <script src="{{ asset('assets_dash/js/app.js') }}"></script>
 </body>
 </html>

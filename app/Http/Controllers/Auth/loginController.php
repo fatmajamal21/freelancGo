@@ -47,7 +47,7 @@ class LoginController extends Controller
 
 
         if (Auth::guard($guard)->attempt($credentials, $request->filled('remember'))) {
-            return redirect()->route("$guard.dashboard");
+            return redirect()->route("$guard.index");
         }
 
         return back()->withErrors(['email' => 'Invalid credentials'])->withInput($request->except('password'));

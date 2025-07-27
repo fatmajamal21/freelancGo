@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول - FreelanGo</title>
+    <title>استعادة كلمة المرور - FreelanGo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link href="{{asset('assets/css/app.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/css/login.css')}}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.rtl.min.css">
+    <link href="../css/app.css" rel="stylesheet">
+    <link href="../css/pages.css" rel="stylesheet">
+    <link href="../css/register.css" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
@@ -15,7 +17,7 @@
             <div class="navbar-brand">
                 <i class="fas fa-rocket"></i> FreelanGo
             </div>
-
+            
             <div class="navbar-content">
                 <ul class="navbar-links">
                     <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
@@ -24,79 +26,54 @@
                     <li><a href="contact.html"><i class="fas fa-envelope"></i> اتصل بنا</a></li>
                 </ul>
             </div>
-
+            
             <div class="navbar-actions">
-                <a href="register.html" class="btn-apply"><i class="fas fa-user-plus"></i> إنشاء حساب</a>
+                <a href="login.html" class="btn-apply"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a>
             </div>
         </div>
     </nav>
-
-    <section class="login-section">
-        <div class="login-container">
-            <div class="login-illustration">
-                <h2>مرحبًا بعودتك!</h2>
-                <p>سجل دخولك الآن للوصول إلى آلاف المشاريع والفرص الاستثنائية في أكبر منصة عمل حر عربية</p>
-            </div>
-
-            <div class="login-form-container">
-                <div class="login-header">
-                    <h1>تسجيل الدخول</h1>
-                    <p>أدخل بيانات حسابك للوصول إلى لوحة التحكم</p>
+    
+    <section class="reset-section">
+        <div class="reset-container">
+            <div class="reset-header">
+                <div class="reset-icon">
+                    <i class="fas fa-key"></i>
                 </div>
-
-                <form id="loginForm" method="post" action="{{ route($guard.'.login.submit') }}">
+                <h1>استعادة كلمة المرور</h1>
+                <p>أدخل بريدك الإلكتروني المسجل وسنرسل لك رابطًا لاستعادة كلمة المرور الخاصة بك</p>
+            </div>
+            
+            <form method="POST" action="{{ route('admin.password.email') }}" id="resetForm" class="reset-form">
                     @csrf
-                    <div class="form-group">
-                        <label for="email"><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-envelope"></i>
-                            <input name="email" type="email" id="email" class="form-control" placeholder="ادخل بريدك الإلكتروني" required>
-                        </div>
+                        <input type="hidden" name="token" value="{{ $token }}">
+                <div class="form-group">
+                    <label for="email"><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" class="form-control" placeholder="ادخل بريدك الإلكتروني" required>
                     </div>
-
-                    <div class="form-group">
-                        <label for="password"><i class="fas fa-lock"></i> كلمة المرور</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-lock"></i>
-                            <input name="password" type="password" id="password" class="form-control" placeholder="ادخل كلمة المرور" required>
-                        </div>
-                    </div>
-
-                    <div class="remember-forgot">
-                        <div class="remember-me">
-                            <input type="checkbox" id="remember">
-                            <label for="remember">تذكرني</label>
-                        </div>
-                        <a href="forgot-password.html" class="forgot-password">هل نسيت كلمة المرور؟</a>
-                    </div>
-
-                    <button type="submit" class="btn-login">
-                        <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
-                    </button>
-
-                    <div class="social-login">
-                        <p>أو سجل الدخول باستخدام</p>
-                        <div class="social-buttons">
-                            <div class="social-btn google">
-                                <i class="fab fa-google"></i>
-                            </div>
-                            <div class="social-btn facebook">
-                                <i class="fab fa-facebook-f"></i>
-                            </div>
-                            <div class="social-btn twitter">
-                                <i class="fab fa-twitter"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="signup-link">
-                        ليس لديك حساب؟ <a href="register.html">إنشاء حساب جديد</a>
-                    </div>
-                </form>
+                </div>
+                
+                <button type="submit" class="btn-reset" id="resetBtn">
+                    <i class="fas fa-paper-plane"></i> إرسال رابط الاستعادة
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <i class="fas fa-check"></i>
+                </button>
+                
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>تم إرسال رابط الاستعادة بنجاح!</h3>
+                    <p>لقد أرسلنا رابطًا لاستعادة كلمة المرور إلى بريدك الإلكتروني. يرجى التحقق من صندوق الوارد.</p>
+                </div>
+            </form>
+            
+            <div class="links-container">
+                <a href="login.html"><i class="fas fa-arrow-left"></i> العودة لتسجيل الدخول</a>
+                <a href="register.html"><i class="fas fa-user-plus"></i> إنشاء حساب جديد</a>
             </div>
         </div>
     </section>
-
+    
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -110,7 +87,7 @@
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
-
+                
                 <div class="footer-column">
                     <h3>روابط سريعة</h3>
                     <ul class="footer-links">
@@ -120,7 +97,7 @@
                         <li><a href="pricing.html"><i class="fas fa-chevron-left"></i> الأسعار</a></li>
                     </ul>
                 </div>
-
+                
                 <div class="footer-column">
                     <h3>الدعم والمساعدة</h3>
                     <ul class="footer-links">
@@ -131,12 +108,15 @@
                     </ul>
                 </div>
             </div>
-
+            
             <div class="copyright">
                 © 2023 FreelanGo. جميع الحقوق محفوظة.
             </div>
         </div>
     </footer>
-
+    <script src="../js/forgot-password.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    
 </body>
 </html>

@@ -33,6 +33,7 @@ class VerifyEmailNotification extends Notification
     /**
      * Get the mail representation of the notification.
      */
+    //صياغة الايميل 
     public function toMail(object $notifiable): MailMessage
     {
         $url = url("/verify-email/{$this->guard}?token={$this->token}");

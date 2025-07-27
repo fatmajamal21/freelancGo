@@ -41,20 +41,29 @@ class AuthController extends Controller
     function register(Request $request)
     {
         $guard = $request->route('guard');
+
+        //  منع admin من إنشاء حساب
+        if ($guard === 'admin') {
+            abort(403, 'Admins cannot register from frontend.');
+        }
+
+        // dd($request->all());
         $provider = config("auth.guards.$guard.provider");
         $modelClass = config("auth.providers.$provider.model");
-        /* email_verified_at		*/
+
         $token = Str::random();
         $user = $modelClass::create([
             'name' => $request->fullname,
             'email' => $request->email,
-            'password' => $request->password,
+            // 'password' => $request->password,
+            'password' => bcrypt($request->password),
             'verification_token' => $token,
             'verification_token_sent_at' => now(),
         ]);
-        // VerifyEmailNotification
+
         $user->notify(new VerifyEmailNotification($token, $guard));
-        //return redirect()->route($guard . '.login');
+
+        // return redirect()->route($guard . '.login');
         return 'تم ارسال رابط تحقق للبريد الالكتروني';
     }
 
