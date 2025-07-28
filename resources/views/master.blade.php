@@ -27,27 +27,13 @@
                 </ul>
             </div>
              <div class="navbar-actions">
-                     <a href="register.html" class="btn-apply"><i class="fas fa-user-plus"></i> إنشاء حساب</a>
-   {{-- @if ($guard !== 'admin')
+                     {{-- <a href="register.html" class="btn-apply"><i class="fas fa-user-plus"></i> إنشاء حساب</a> --}}
+   @if ($guard !== 'admin')
         <a href="{{ route($guard . '.register') }}"class="btn-apply"><i class="fas fa-user-plus"></i> إنشاء حساب</a>
-    @endif  --}}
+    @endif 
                 </div>
         </div>
     </nav>
-           
-         {{-- Success and Error Alerts --}}
-{{-- @if (session('status'))
-    <div class="alert alert-success" id="success-message">
-        <span class="message">{{ session('status') }}</span>
-    </div>
-@endif
-
-
-    @if(session('error'))
-        <div class="alert alert-danger" id="error-message">
-            <span class="message">{{ session('error') }}</span>
-        </div>
-    @endif         --}}
 
 
     @yield('content')

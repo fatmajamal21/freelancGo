@@ -28,6 +28,9 @@ Route::prefix('client/')->name('client.')->group(function () {
         Route::get('login',  'indexLogin')->name('login')->defaults('guard', 'client');
         Route::post('login',  'login')->name('login.submit')->defaults('guard', 'client');
 
+        Route::get('register',  'indexRegister')->name('register')->defaults('guard', 'client');
+        Route::post('register',  'register')->name('register.submit')->defaults('guard', 'client');
+
         Route::get('forget-password',  'indexForgetPassword')->name('forget-password')->defaults('guard', 'client');
         Route::post('forget-password',  'forgetPassword')->name('forget-password.submit')->defaults('guard', 'client');
 
