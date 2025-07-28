@@ -801,7 +801,6 @@
   <!--app-->
   <script src="{{ asset('assets_admin/js/app.js')}}"></script>
   <script src="{{ asset('assets_admin/js/index.js')}}"></script>
-  
   <script>
  </script>
 

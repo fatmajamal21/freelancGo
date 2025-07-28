@@ -1,0 +1,118 @@
+/* Simple Verification Page Styles */
+.verification-section {
+    background-color: #f4f7fc;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.verification-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.verification-icon {
+    font-size: 40px;
+    color: #a167ff;
+    margin-bottom: 20px;
+}
+
+.verification-header h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.verification-message p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.verification-message strong {
+    color: #333;
+}
+
+.btn-home {
+    background-color: #a167ff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.btn-home:hover {
+    background-color: #a167ff;
+}
+
+/* Center the form and add spacing */
+.verification-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    background-color: #f7f8fa;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin-top: 50px;
+}
+
+/* Style the heading */
+.verification-container h1 {
+    font-size: 28px;
+    color: #6f42c1;
+    margin-bottom: 20px;
+}
+
+/* Style the message */
+.verification-container p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Style the button */
+.btn-home {
+    background-color: #6f42c1;
+    color: white;
+    padding: 15px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-home:hover {
+    background-color: #5a2d99;
+}
+
+/* Style the footer links */
+footer {
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .verification-container {
+        padding: 20px;
+    }
+
+    .verification-container h1 {
+        font-size: 24px;
+    }
+
+    .btn-home {
+        font-size: 14px;
+    }
+}

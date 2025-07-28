@@ -2,13 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\CanResetPassword;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Notifications\ForgetPasswordNotification;
 
-
-class Admin extends Authenticatable
+class Client extends Authenticatable
 {
     use Notifiable;
     protected $guarded = [];
+
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ForgetPasswordNotification($token, 'admin'));
+    }
 }

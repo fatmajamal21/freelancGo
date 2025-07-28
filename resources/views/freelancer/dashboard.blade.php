@@ -5,28 +5,28 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="{{ asset('assets_admin/images/favicon-32x32.png')}}" type="image/png" />
+  <link rel="icon" href="{{ asset('assets_freelancer/images/favicon-32x32.png')}}" type="image/png" />
   <!--plugins-->
-  <link href="{{ asset('assets_admin/plugins/simplebar/css/simplebar.css')}}" rel="stylesheet" />
-  <link href="{{ asset('assets_admin/plugins/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" />
-  <link href="{{ asset('assets_admin/plugins/metismenu/css/metisMenu.min.css')}}" rel="stylesheet" />
+  <link href="{{ asset('assets_freelancer/plugins/simplebar/css/simplebar.css')}}" rel="stylesheet" />
+  <link href="{{ asset('assets_freelancer/plugins/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" />
+  <link href="{{ asset('assets_freelancer/plugins/metismenu/css/metisMenu.min.css')}}" rel="stylesheet" />
   <!-- Bootstrap CSS -->
-  <link href="{{ asset('assets_admin/css/bootstrap.min.css')}}" rel="stylesheet" />
-  <link href="{{ asset('assets_admin/css/bootstrap-extended.css')}}" rel="stylesheet" />
-  <link href="{{ asset('assets_admin/css/style.css')}}" rel="stylesheet" />
-  <link href="{{ asset('assets_admin/css/icons.css')}}" rel="stylesheet">
+  <link href="{{ asset('assets_freelancer/css/bootstrap.min.css')}}" rel="stylesheet" />
+  <link href="{{ asset('assets_freelancer/css/bootstrap-extended.css')}}" rel="stylesheet" />
+  <link href="{{ asset('assets_freelancer/css/style.css')}}" rel="stylesheet" />
+  <link href="{{ asset('assets_freelancer/css/icons.css')}}" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css')}}">
 
 
   <!-- loader-->
-	<link href="{{ asset('assets_admin/css/pace.min.css')}}" rel="stylesheet" />
+	<link href="{{ asset('assets_freelancer/css/pace.min.css')}}" rel="stylesheet" />
 
   <!--Theme Styles-->
-  <link href="{{ asset('assets_admin/css/dark-theme.css')}}" rel="stylesheet" />
-  <link href="{{ asset('assets_admin/css/light-theme.css')}}" rel="stylesheet" />
-  <link href="{{ asset('assets_admin/css/semi-dark.css')}}" rel="stylesheet" />
-  <link href="{{ asset('assets_admin/css/header-colors.css')}}" rel="stylesheet" />
+  <link href="{{ asset('assets_freelancer/css/dark-theme.css')}}" rel="stylesheet" />
+  <link href="{{ asset('assets_freelancer/css/light-theme.css')}}" rel="stylesheet" />
+  <link href="{{ asset('assets_freelancer/css/semi-dark.css')}}" rel="stylesheet" />
+  <link href="{{ asset('assets_freelancer/css/header-colors.css')}}" rel="stylesheet" />
 
   <title>Snacked - Bootstrap 5 Admin Template</title>
 </head>
@@ -59,14 +59,14 @@
               <li class="nav-item dropdown dropdown-user-setting">
                 <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
                   <div class="user-setting d-flex align-items-center">
-                    <img src="{{ asset('assets_admin/images/avatars/avatar-1.png')}}" class="user-img" alt="">
+                    <img src="{{ asset('assets_freelancer/images/avatars/avatar-1.png')}}" class="user-img" alt="">
                   </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                   <li>
                      <a class="dropdown-item" href="#">
                        <div class="d-flex align-items-center">
-                          <img src="{{ asset('assets_admin/images/avatars/avatar-1.png')}}" alt="" class="rounded-circle" width="54" height="54">
+                          <img src="{{ asset('assets_freelancer/images/avatars/avatar-1.png')}}" alt="" class="rounded-circle" width="54" height="54">
                           <div class="ms-3">
                             <h6 class="mb-0 dropdown-user-name">Jhon Deo</h6>
                             <small class="mb-0 dropdown-user-designation text-secondary">HR Manager</small>
@@ -241,7 +241,7 @@
                  <div class="header-message-list p-2">
                      <a class="dropdown-item" href="#">
                        <div class="d-flex align-items-center">
-                          <img src="{{ asset('assets_admin/images/avatars/avatar-1.png')}}" alt="" class="rounded-circle" width="50" height="50">
+                          <img src="{{ asset('assets_freelancer/images/avatars/avatar-1.png')}}" alt="" class="rounded-circle" width="50" height="50">
                           <div class="ms-3 flex-grow-1">
                             <h6 class="mb-0 dropdown-msg-user">Amelio Joly <span class="msg-time float-end text-secondary">1 m</span></h6>
                             <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">The standard chunk of lorem...</small>
@@ -250,7 +250,7 @@
                      </a>
                     <a class="dropdown-item" href="#">
                       <div class="d-flex align-items-center">
-                         <img src="{{ asset('assets_admin/images/avatars/avatar-2.png')}}" alt="" class="rounded-circle" width="50" height="50">
+                         <img src="{{ asset('assets_freelancer/images/avatars/avatar-2.png')}}" alt="" class="rounded-circle" width="50" height="50">
                          <div class="ms-3 flex-grow-1">
                            <h6 class="mb-0 dropdown-msg-user">Althea Cabardo <span class="msg-time float-end text-secondary">7 m</span></h6>
                            <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">Many desktop publishing</small>
@@ -259,7 +259,7 @@
                     </a>
                     <a class="dropdown-item" href="#">
                       <div class="d-flex align-items-center">
-                         <img src="{{ asset('assets_admin/images/avatars/avatar-3.png')}}" alt="" class="rounded-circle" width="50" height="50">
+                         <img src="{{ asset('assets_freelancer/images/avatars/avatar-3.png')}}" alt="" class="rounded-circle" width="50" height="50">
                          <div class="ms-3 flex-grow-1">
                            <h6 class="mb-0 dropdown-msg-user">Katherine Pechon <span class="msg-time float-end text-secondary">2 h</span></h6>
                            <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">Making this the first true</small>
@@ -268,7 +268,7 @@
                     </a>
                     <a class="dropdown-item" href="#">
                       <div class="d-flex align-items-center">
-                         <img src="{{ asset('assets_admin/images/avatars/avatar-4.png')}}" alt="" class="rounded-circle" width="50" height="50">
+                         <img src="{{ asset('assets_freelancer/images/avatars/avatar-4.png')}}" alt="" class="rounded-circle" width="50" height="50">
                          <div class="ms-3 flex-grow-1">
                            <h6 class="mb-0 dropdown-msg-user">Peter Costanzo <span class="msg-time float-end text-secondary">3 h</span></h6>
                            <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">It was popularised in the 1960</small>
@@ -277,7 +277,7 @@
                     </a>
                     <a class="dropdown-item" href="#">
                       <div class="d-flex align-items-center">
-                         <img src="{{ asset('assets_admin/images/avatars/avatar-5.png')}}" alt="" class="rounded-circle" width="50" height="50">
+                         <img src="{{ asset('assets_freelancer/images/avatars/avatar-5.png')}}" alt="" class="rounded-circle" width="50" height="50">
                          <div class="ms-3 flex-grow-1">
                            <h6 class="mb-0 dropdown-msg-user">Thomas Wheeler <span class="msg-time float-end text-secondary">1 d</span></h6>
                            <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">If you are going to use a passage</small>
@@ -286,7 +286,7 @@
                     </a>
                     <a class="dropdown-item" href="#">
                       <div class="d-flex align-items-center">
-                         <img src="{{ asset('assets_admin/images/avatars/avatar-6.png')}}" alt="" class="rounded-circle" width="50" height="50">
+                         <img src="{{ asset('assets_freelancer/images/avatars/avatar-6.png')}}" alt="" class="rounded-circle" width="50" height="50">
                          <div class="ms-3 flex-grow-1">
                            <h6 class="mb-0 dropdown-msg-user">Johnny Seitz <span class="msg-time float-end text-secondary">2 w</span></h6>
                            <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">All the Lorem Ipsum generators</small>
@@ -295,7 +295,7 @@
                     </a>
                     <a class="dropdown-item" href="#">
                       <div class="d-flex align-items-center">
-                         <img src="{{ asset('assets_admin/images/avatars/avatar-1.png')}}" alt="" class="rounded-circle" width="50" height="50">
+                         <img src="{{ asset('assets_freelancer/images/avatars/avatar-1.png')}}" alt="" class="rounded-circle" width="50" height="50">
                          <div class="ms-3 flex-grow-1">
                            <h6 class="mb-0 dropdown-msg-user">Amelio Joly <span class="msg-time float-end text-secondary">1 m</span></h6>
                            <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">The standard chunk of lorem...</small>
@@ -304,7 +304,7 @@
                     </a>
                    <a class="dropdown-item" href="#">
                      <div class="d-flex align-items-center">
-                        <img src="{{ asset('assets_admin/images/avatars/avatar-2.png')}}" alt="" class="rounded-circle" width="50" height="50">
+                        <img src="{{ asset('assets_freelancer/images/avatars/avatar-2.png')}}" alt="" class="rounded-circle" width="50" height="50">
                         <div class="ms-3 flex-grow-1">
                           <h6 class="mb-0 dropdown-msg-user">Althea Cabardo <span class="msg-time float-end text-secondary">7 m</span></h6>
                           <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">Many desktop publishing</small>
@@ -313,7 +313,7 @@
                    </a>
                    <a class="dropdown-item" href="#">
                      <div class="d-flex align-items-center">
-                        <img src="{{ asset('assets_admin/images/avatars/avatar-3.png')}}" alt="" class="rounded-circle" width="50" height="50">
+                        <img src="{{ asset('assets_freelancer/images/avatars/avatar-3.png')}}" alt="" class="rounded-circle" width="50" height="50">
                         <div class="ms-3 flex-grow-1">
                           <h6 class="mb-0 dropdown-msg-user">Katherine Pechon <span class="msg-time float-end text-secondary">2 h</span></h6>
                           <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">Making this the first true</small>
@@ -459,7 +459,7 @@
         <aside class="sidebar-wrapper" data-simplebar="true">
           <div class="sidebar-header">
             <div>
-              <img src="{{ asset('assets_admin/images/logo-icon.png')}}" class="logo-icon" alt="logo icon">
+              <img src="{{ asset('assets_freelancer/images/logo-icon.png')}}" class="logo-icon" alt="logo icon">
             </div>
             <div>
               <h4 class="logo-text">FreelanGO</h4>
@@ -793,14 +793,14 @@
 
 
   <!-- Bootstrap bundle JS -->
-  <script src="{{ asset('assets_admin/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{ asset('assets_freelancer/js/bootstrap.bundle.min.js')}}"></script>
   <!--plugins-->
-  <script src="{{ asset('assets_admin/js/jquery.min.js')}}"></script>
-  <script src="{{ asset('assets_admin/plugins/simplebar/js/simplebar.min.js')}}"></script>
-  <script src="{{ asset('assets_admin/plugins/metismenu/js/metisMenu.min.js')}}"></script>
+  <script src="{{ asset('assets_freelancer/js/jquery.min.js')}}"></script>
+  <script src="{{ asset('assets_freelancer/plugins/simplebar/js/simplebar.min.js')}}"></script>
+  <script src="{{ asset('assets_freelancer/plugins/metismenu/js/metisMenu.min.js')}}"></script>
   <!--app-->
-  <script src="{{ asset('assets_admin/js/app.js')}}"></script>
-  <script src="{{ asset('assets_admin/js/index.js')}}"></script>
+  <script src="{{ asset('assets_freelancer/js/app.js')}}"></script>
+  <script src="{{ asset('assets_freelancer/js/index.js')}}"></script>
   <script>
  </script>
 

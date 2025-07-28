@@ -9,6 +9,7 @@
     <link href="{{ asset('assets_dash/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('assets_dash/css/pages.css') }}" rel="stylesheet">
     <link href="{{ asset('assets_dash/css/responsive.css') }}" rel="stylesheet">
+     <link href="{{ asset('assets_dash/css/alert.css') }}" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
@@ -25,15 +26,29 @@
                     <li><a href="contact.html"><i class="fas fa-envelope"></i> اتصل بنا</a></li>
                 </ul>
             </div>
-
-            <div class="navbar-actions">
-                @if ($guard !== 'admin')
-   <a href="register.html" class="btn-apply"><i class="fas fa-user-plus"></i> إنشاء حساب</a>
-@endif
-             
-            </div>
+             <div class="navbar-actions">
+                     <a href="register.html" class="btn-apply"><i class="fas fa-user-plus"></i> إنشاء حساب</a>
+   {{-- @if ($guard !== 'admin')
+        <a href="{{ route($guard . '.register') }}"class="btn-apply"><i class="fas fa-user-plus"></i> إنشاء حساب</a>
+    @endif  --}}
+                </div>
         </div>
     </nav>
+           
+         {{-- Success and Error Alerts --}}
+{{-- @if (session('status'))
+    <div class="alert alert-success" id="success-message">
+        <span class="message">{{ session('status') }}</span>
+    </div>
+@endif
+
+
+    @if(session('error'))
+        <div class="alert alert-danger" id="error-message">
+            <span class="message">{{ session('error') }}</span>
+        </div>
+    @endif         --}}
+
 
     @yield('content')
 
@@ -77,6 +92,6 @@
             </div>
         </div>
     </footer>
-   <script src="{{ asset('assets_dash/js/app.js') }}"></script>
+
 </body>
 </html>

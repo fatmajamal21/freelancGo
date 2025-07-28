@@ -7,10 +7,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class VerifyEmailNotification extends Notification
+class ForgetPasswordNotification extends Notification
 {
     use Queueable;
     protected $token, $guard;
+
     /**
      * Create a new notification instance.
      */
@@ -35,7 +36,7 @@ class VerifyEmailNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $url = url("/verify-email/{$this->guard}?token={$this->token}");
+        $url = url("/{$this->guard}/reset-password/{$this->token}?email=" . urlencode($notifiable->email));
         return (new MailMessage)
             ->line('The introduction to the notification.')
             ->action('Notification Action', $url)

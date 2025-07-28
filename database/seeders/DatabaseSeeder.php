@@ -17,18 +17,23 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\User::create([
             'name' => 'Test User',
-            'email' => 'user_A@example.com',
+            'email' => 'userA@example.com',
             'password' => Hash::make('123456789'),
         ]);
-        \App\Models\Admin::create([
-            'name' => 'Test Admin',
-            'email' => 'admin_A@example.com',
-            'password' => Hash::make('123456789'),
-        ]);
-        \App\Models\Freelancer::create([
-            'name' => 'Test Freelancer',
-            'email' => 'freelancer_A@example.com',
-            'password' => Hash::make('123456789'),
-        ]);
+        //        \App\Models\Client::create([
+        //     'name' => 'Test User',
+        //     'email' => 'clientA@example.com',
+        //     'password' => Hash::make('123456789'),
+        // ]);
+        // \App\Models\Admin::create([
+        //     'name' => 'Test Admin',
+        //     'email' => 'adminA@example.com',
+        //     'password' => Hash::make('123456789'),
+        // ]);
+        // \App\Models\Freelancer::create([
+        //     'name' => 'Test Freelancer',
+        //     'email' => 'freelancerA@example.com',
+        //     'password' => Hash::make('123456789'),
+        // ]);
     }
 }
