@@ -20,8 +20,23 @@ use Illuminate\Support\Facades\Route;
 Route::get('verify-email/{guard}', [EmailVerificationController::class, 'verify'])->name('verification.verify')->where('guard', 'web|freelancer');
 Route::get('conf', function () {
     return view('auth.confirmation');
-})->name('con');
+})->name('confirmation');
 
+// client Routes
+Route::prefix('client/')->name('client.')->group(function () {
+    Route::controller(AuthController::class)->group(function () {
+        Route::get('login',  'indexLogin')->name('login')->defaults('guard', 'client');
+        Route::post('login',  'login')->name('login.submit')->defaults('guard', 'client');
+
+        Route::get('forget-password',  'indexForgetPassword')->name('forget-password')->defaults('guard', 'client');
+        Route::post('forget-password',  'forgetPassword')->name('forget-password.submit')->defaults('guard', 'client');
+
+        Route::get('reset-password/{token}',  'showResetForm')->name('password.reset')->defaults('guard', 'client');
+        Route::post('reset-password', 'resetPassword')->name('password.update')->defaults('guard', 'client');
+
+        Route::get('dashboard', 'dashboard')->name('dashboard')->defaults('guard', 'client');
+    });
+});
 
 // Admin Routes
 Route::prefix('admin/')->name('admin.')->group(function () {
@@ -38,6 +53,7 @@ Route::prefix('admin/')->name('admin.')->group(function () {
         Route::get('dashboard', 'dashboard')->name('dashboard')->defaults('guard', 'admin');
     });
 });
+
 
 // Freelancer Routes
 Route::prefix('freelancer/')->name('freelancer.')->group(function () {
@@ -58,45 +74,28 @@ Route::prefix('freelancer/')->name('freelancer.')->group(function () {
     });
 });
 
-// client Routes
-Route::prefix('client/')->name('client.')->group(function () {
-    Route::controller(AuthController::class)->group(function () {
-        Route::get('login',  'indexLogin')->name('login')->defaults('guard', 'client');
-        Route::post('login',  'login')->name('login.submit')->defaults('guard', 'client');
 
-        Route::get('register',  'indexRegister')->name('register')->defaults('guard', 'client');
-        Route::post('register',  'register')->name('register.submit')->defaults('guard', 'client');
-
-        Route::get('forget-password',  'indexForgetPassword')->name('forget-password')->defaults('guard', 'client');
-        Route::post('forget-password',  'forgetPassword')->name('forget-password.submit')->defaults('guard', 'client');
-
-        Route::get('reset-password/{token}',  'showResetForm')->name('password.reset')->defaults('guard', 'client');
-        Route::post('reset-password', 'resetPassword')->name('password.update')->defaults('guard', 'client');
-
-        Route::get('dashboard', 'dashboard')->name('dashboard')->defaults('guard', 'client');
-    });
-});
 
 
 // User Routes
-Route::controller(AuthController::class)->group(function () {
+// Route::controller(AuthController::class)->group(function () {
 
 
-    Route::get('forget-password', function () {
-        return view('auth.forget-password');
-    })->name('forget-password');
+//     Route::get('forget-password', function () {
+//         return view('auth.forget-password');
+//     })->name('forget-password');
 
 
-    Route::get('login',  'indexLogin')->name('web.login')->defaults('guard', 'web');
-    Route::post('login', 'login')->name('web.login.submit')->defaults('guard', 'web');
+//     Route::get('login',  'indexLogin')->name('web.login')->defaults('guard', 'web');
+//     Route::post('login', 'login')->name('web.login.submit')->defaults('guard', 'web');
 
-    Route::get('register',  'indexRegister')->name('web.register')->defaults('guard', 'web');
-    Route::post('register',  'register')->name('web.register.submit')->defaults('guard', 'web');
+//     Route::get('register',  'indexRegister')->name('web.register')->defaults('guard', 'web');
+//     Route::post('register',  'register')->name('web.register.submit')->defaults('guard', 'web');
 
-    Route::get('forget-password',  'indexForgetPassword')->name('forget-password')->defaults('guard', 'web');
-    Route::post('forget-password',  'forgetPassword')->name('forget-password.submit')->defaults('guard', 'web');
+//     Route::get('forget-password',  'indexForgetPassword')->name('forget-password')->defaults('guard', 'web');
+//     Route::post('forget-password',  'forgetPassword')->name('forget-password.submit')->defaults('guard', 'web');
 
-    Route::get('reset-password/{token}',  'showResetForm')->name('password.reset')->defaults('guard', 'web');
-    Route::post('reset-password', 'resetPassword')->name('password.update')->defaults('guard', 'web');
-    Route::get('dashboard', 'dashboard')->name('dashboard')->defaults('guard', 'web');
-});
+//     Route::get('reset-password/{token}',  'showResetForm')->name('password.reset')->defaults('guard', 'web');
+//     Route::post('reset-password', 'resetPassword')->name('password.update')->defaults('guard', 'web');
+//     Route::get('dashboard', 'dashboard')->name('dashboard')->defaults('guard', 'web');
+// });

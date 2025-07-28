@@ -36,6 +36,7 @@ class VerifyEmailNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         $url = url("/verify-email/{$this->guard}?token={$this->token}");
+
         return (new MailMessage)
             ->line('The introduction to the notification.')
             ->action('Notification Action', $url)

@@ -38,7 +38,7 @@
                         <input type="checkbox" id="remember">
                         <label for="remember">تذكرني</label>
                     </div>
-                    {{-- <a href="{{ route($guard . '.forget-password') }}" class="forgot-password">هل نسيت كلمة المرور؟</a> --}}
+                    <a href="{{ route($guard . '.forget-password') }}" class="forgot-password">هل نسيت كلمة المرور؟</a>
 
                     {{-- <a href="forgot-password.html" class="forgot-password">هل نسيت كلمة المرور؟</a> --}}
                 </div>
@@ -63,9 +63,9 @@
                 </div>
                  
                 <div class="signup-link">
-                    @if ($guard !== 'admin')
+                    {{-- @if ($guard !== 'admin')
                         ليس لديك حساب؟ <a href="{{ route($guard . '.register') }}">إنشاء حساب جديد</a>
-                    @endif
+                    @endif --}}
                 </div>
             </form>
         </div>

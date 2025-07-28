@@ -15,6 +15,6 @@ class Client extends Authenticatable
 
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new ForgetPasswordNotification($token, 'admin'));
+        $this->notify(new ForgetPasswordNotification($token, 'client'));
     }
 }
