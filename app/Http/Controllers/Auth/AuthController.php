@@ -60,7 +60,7 @@ class AuthController extends Controller
         $user->notify(new VerifyEmailNotification($token, $guard));
 
         // Redirect to the confirmation page and pass the email
-        return redirect()->route('con')->with('email', $request->email);
+        return redirect()->route('confirmation')->with('email', $request->email);
     }
 
 
@@ -93,7 +93,7 @@ class AuthController extends Controller
 
         // إرسال المستخدم إلى صفحة التأكيد في حال تم إرسال الرابط بنجاح
         if ($status === Password::RESET_LINK_SENT) {
-            return redirect()->route('con')->with('status', 'تم إرسال رابط الاستعادة بنجاح!');
+            return redirect()->route('confirmation')->with('status', 'تم إرسال رابط الاستعادة بنجاح!');
         } else {
             return back()->withErrors(['email' => __($status)]);
         }

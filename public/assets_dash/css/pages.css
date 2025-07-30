@@ -21,6 +21,38 @@
     z-index: 1;
 }
 
+.form-step {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 0;
+}
+
+
+
+.account-option {
+    display: inline-block;
+    padding: 15px;
+    margin: 10px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    /* أو أي لون ثابت تريده */
+    transition: all 0.3s ease;
+}
+
+.account-option:hover {
+    border-color: #9344b3;
+    background-color: #f0f8ff;
+    color: #333;
+    /* تثبيت اللون ومنع الأزرق */
+    text-decoration: none;
+    /* منع خط الرابط */
+}
+
+
 .login-illustration {
     flex: 1;
     background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -432,7 +464,7 @@
 }
 
 .account-type label:hover {
-    border-color: var(--primary);
+    /* border-color: var(--primary); */
     transform: translateY(-5px);
     box-shadow: var(--box-shadow);
 }
@@ -1619,6 +1651,8 @@
     gap: 20px;
     margin-bottom: 20px;
 }
+
+
 
 .form-row .form-group {
     flex: 1;

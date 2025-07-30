@@ -27,7 +27,8 @@
                     </div>
                 </div>
 
-                <form enctype="multipart/form-data" method="POST" action="{{ route($guard . '.register.submit') }}" id="registerForm">
+                <form enctype="multipart/form-data" method="POST" action="{{ route($guard . '.register.submit') }}"
+                    id="registerForm">
                     @csrf
                     <div class="form-steps">
                         <!-- Step 1: Account Type -->
@@ -35,35 +36,38 @@
                             <div class="form-group">
                                 <label><i class="fas fa-user-tag"></i> نوع الحساب</label>
                                 <div class="account-type">
-                                    <input  value="web" type="radio" name="accountType" id="client"  checked>
-                                    <label for="client">
-                                        <i class="fas fa-briefcase"></i>
-                                        <span>عميل</span>
-                                        <small>أبحث عن محترفين لتنفيذ مشاريعي</small>
-                                    </label>
+                                    <a href="{{ route('client.register') }}">
+                                        <label for="client">
+                                            <i class="fas fa-briefcase"></i>
+                                            <span>عميل</span>
+                                            <small>أبحث عن محترفين لتنفيذ مشاريعي</small>
+                                        </label>
+                                    </a>
 
-                                    <input value="freelancer" type="radio" name="accountType" id="freelancer" >
+                                    <a href="{{ route('freelancer.register') }}">
                                     <label for="freelancer">
                                         <i class="fas fa-laptop-code"></i>
                                         <span>فريلانسر</span>
                                         <small>أقدم خدماتي في مجال خبرتي</small>
                                     </label>
+                                    </a>
+
                                 </div>
                             </div>
                         </div>
 
                         <!-- Step 2: Personal Information -->
                         <div class="form-step" id="step2">
-                            <div class="form-group">
+                           <div class="form-group mb-3">
                                 <label for="fullname"><i class="fas fa-user"></i> الاسم الكامل</label>
                                 <div class="input-with-icon">
                                     <i class="fas fa-user"></i>
-                                    <input name="fullname" type="text" id="fullname" class="form-control" placeholder="ادخل اسمك الكامل"
-                                        required>
+                                    <input name="fullname" type="text" id="fullname" class="form-control"
+                                        placeholder="ادخل اسمك الكامل" required>
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label for="email"><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
                                 <div class="input-with-icon">
                                     <i class="fas fa-envelope"></i>
@@ -72,7 +76,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label for="password"><i class="fas fa-lock"></i> كلمة المرور</label>
                                 <div class="input-with-icon">
                                     <i class="fas fa-lock"></i>
@@ -81,7 +85,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                           <div class="form-group mb-3">
                                 <label for="confirmPassword"><i class="fas fa-lock"></i> تأكيد كلمة المرور</label>
                                 <div class="input-with-icon">
                                     <i class="fas fa-lock"></i>
@@ -111,7 +115,7 @@
                                     <div class="category-item">
                                         <input type="checkbox" id="contentWriting">
                                         <label for="contentWriting">كتابة المحتوى</label>
-                                    </div>
+                                    {{-- </div>
                                     <div class="category-item">
                                         <input type="checkbox" id="marketing">
                                         <label for="marketing">التسويق الرقمي</label>
@@ -126,7 +130,7 @@
                                     </div>
                                     <div class="category-item">
                                         <input type="checkbox" id="seo">
-                                        <label for="seo">تحسين محركات البحث</label>
+                                        <label for="seo">تحسين محركات البحث</label> --}}
                                     </div>
                                 </div>
                             </div>
@@ -139,7 +143,7 @@
 
                             <div class="form-group">
                                 <label for="experience"><i class="fas fa-chart-line"></i> سنوات الخبرة</label>
-                                <select  name="experience" id="experience" class="form-control">
+                                <select name="experience" id="experience" class="form-control">
                                     <option value="">اختر عدد سنوات الخبرة</option>
                                     <option value="0-1">أقل من سنة</option>
                                     <option value="1-3">1-3 سنوات</option>
@@ -171,8 +175,8 @@
                                                 <p>انقر أو اسحب الملف هنا</p>
                                                 <small>JPG, PNG, PDF - الحد الأقصى للحجم 5MB</small>
                                             </div>
-                                            <input name="imageIdCard" type="file" id="idUpload" accept=".jpg,.jpeg,.png,.pdf"
-                                                style="display:none;">
+                                            <input name="imageIdCard" type="file" id="idUpload"
+                                                accept=".jpg,.jpeg,.png,.pdf" style="display:none;">
                                             <div class="upload-preview" id="idPreview"></div>
                                         </div>
                                     </div>
@@ -188,8 +192,8 @@
                                                 <p>انقر أو اسحب الملف هنا</p>
                                                 <small>JPG, PNG - الحد الأقصى للحجم 5MB</small>
                                             </div>
-                                            <input name="imageIdCardWithUser" type="file" id="selfieUpload" accept=".jpg,.jpeg,.png"
-                                                style="display:none;">
+                                            <input name="imageIdCardWithUser" type="file" id="selfieUpload"
+                                                accept=".jpg,.jpeg,.png" style="display:none;">
                                             <div class="upload-preview" id="selfiePreview"></div>
                                         </div>
                                     </div>

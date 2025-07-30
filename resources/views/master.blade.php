@@ -9,7 +9,7 @@
     <link href="{{ asset('assets_dash/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('assets_dash/css/pages.css') }}" rel="stylesheet">
     <link href="{{ asset('assets_dash/css/responsive.css') }}" rel="stylesheet">
-     <link href="{{ asset('assets_dash/css/alert.css') }}" rel="stylesheet">
+     {{-- <link href="{{ asset('assets_dash/css/alert.css') }}" rel="stylesheet"> --}}
 </head>
 <body>
     <nav class="navbar">
@@ -28,9 +28,9 @@
             </div>
              <div class="navbar-actions">
                      {{-- <a href="register.html" class="btn-apply"><i class="fas fa-user-plus"></i> إنشاء حساب</a> --}}
-   @if ($guard !== 'admin')
+   {{-- @if ($guard !== 'admin')
         <a href="{{ route($guard . '.register') }}"class="btn-apply"><i class="fas fa-user-plus"></i> إنشاء حساب</a>
-    @endif 
+    @endif  --}}
                 </div>
         </div>
     </nav>
@@ -78,6 +78,8 @@
             </div>
         </div>
     </footer>
+<script src="{{ asset('assets_dash/js/app.js') }}"></script>
+
 
 </body>
 </html>

@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         // \App\Models\Client::create([
         //     'name' => 'Test User',
-        //     'email' => 'clientB@example.com',
+        //     'email' => 'clientA@example.com',
         //     'password' => Hash::make('123456789'),
         // ]);
         // \App\Models\Admin::create([

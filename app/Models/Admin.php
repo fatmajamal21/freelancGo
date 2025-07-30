@@ -7,7 +7,7 @@ use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ForgetPasswordNotification;
 
-class Client extends Authenticatable
+class Admin extends Authenticatable
 {
     use Notifiable;
     protected $guarded = [];
@@ -15,6 +15,6 @@ class Client extends Authenticatable
 
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new ForgetPasswordNotification($token, 'client'));
+        $this->notify(new ForgetPasswordNotification($token, 'admin'));
     }
 }
