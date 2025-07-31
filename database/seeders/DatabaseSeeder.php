@@ -5,6 +5,8 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class DatabaseSeeder extends Seeder
 {
@@ -35,5 +37,49 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'freelancerA@example.com',
         //     'password' => Hash::make('123456789'),
         // ]);
+
+
+
+        /* users :  view , store , update , delete */
+        // create perm
+        /*Permission::create(['name' => 'users.view' , 'guard_name' => 'admin']);
+        Permission::create(['name' => 'users.store', 'guard_name' => 'admin']);
+        Permission::create(['name' => 'users.update', 'guard_name' => 'admin']);
+        Permission::create(['name' => 'users.delete', 'guard_name' => 'admin']);
+
+        // create roles
+        $super =  Role::create(['name' => 'super', 'guard_name' => 'admin']);
+        $viewer = Role::create(['name' => 'viewer', 'guard_name' => 'admin']);
+        $editor = Role::create(['name' => 'editor', 'guard_name' => 'admin']);
+
+        // give per to role
+        $super->givePermissionTo(Permission::all());
+        $viewer->givePermissionTo(['users.view']);
+        $editor->givePermissionTo(['users.view', 'users.update', 'users.delete']);
+*/
+        // give per to user
+        /*  $user = Admin::find(1);
+        $user->syncRoles('viewer');*/
+
+
+
+
+
+
+        $models = ['User'];
+        $actions = ['store', 'view', 'update', 'delete'];
+
+        $super =  Role::firstOrCreate(['name' => 'super', 'guard_name' => 'admin']);
+        foreach ($models as $model) {
+            foreach ($actions as $action) {
+                $permName = "$model.$action";
+                $permission = Permission::firstOrCreate([
+                    'name' => $permName,
+                    'guard_name' => 'admin',
+                ]);
+
+                $super->givePermissionTo($permission);
+            }
+        }
     }
 }
