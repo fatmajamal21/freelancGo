@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,45 +26,50 @@ Route::get('confirm', function () {
 
 
 // dashboard admin routes :
-Route::prefix('admin/')->name('admin.')->middleware('auth:admin')->group(function () {
-    Route::prefix('admins/')->controller(UserController::class)->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function () {
+    // Admins
+    Route::prefix('admins')->name('admins.')->controller(UserController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/getdata', 'getdata')->name('getdata');
         Route::post('/store', 'store')->name('store');
         Route::post('/update', 'update')->name('update');
         Route::post('/delete', 'delete')->name('delete');
     });
-    Route::prefix('users/')->controller(UserController::class)->name('user.')->group(function () {
+    // Users
+    Route::prefix('users')->name('users.')->controller(UserController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/getdata', 'getdata')->name('getdata');
         Route::post('/store', 'store')->name('store');
         Route::post('/update', 'update')->name('update');
         Route::post('/delete', 'delete')->name('delete');
     });
-    Route::prefix('freelancers/')->controller(UserController::class)->name('freelancer.')->group(function () {
+
+    // Freelancers
+    Route::prefix('freelancers')->name('freelancers.')->controller(UserController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/getdata', 'getdata')->name('getdata');
         Route::post('/store', 'store')->name('store');
         Route::post('/update', 'update')->name('update');
         Route::post('/delete', 'delete')->name('delete');
     });
-    Route::prefix('verification/')->controller(UserController::class)->name('verification.')->group(function () {
-        Route::prefix('users/')->controller(UserController::class)->name('user.')->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::get('/getdata', 'getdata')->name('getdata');
-            Route::post('/store', 'store')->name('store');
-            Route::post('/update', 'update')->name('update');
-            Route::post('/delete', 'delete')->name('delete');
-        });
-        Route::prefix('freelancers/')->controller(UserController::class)->name('freelancer.')->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::get('/getdata', 'getdata')->name('getdata');
-            Route::post('/store', 'store')->name('store');
-            Route::post('/update', 'update')->name('update');
-            Route::post('/delete', 'delete')->name('delete');
-        });
+    // Verification - Users
+    Route::prefix('verification/users')->name('verification.users.')->controller(UserController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/getdata', 'getdata')->name('getdata');
+        Route::post('/store', 'store')->name('store');
+        Route::post('/update', 'update')->name('update');
+        Route::post('/delete', 'delete')->name('delete');
     });
-    Route::prefix('projects/')->controller(UserController::class)->name('projects.')->group(function () {
+    // Verification - Freelancers
+    Route::prefix('verification/freelancers')->name('verification.freelancers.')->controller(UserController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/getdata', 'getdata')->name('getdata');
+        Route::post('/store', 'store')->name('store');
+        Route::post('/update', 'update')->name('update');
+        Route::post('/delete', 'delete')->name('delete');
+    });
+    // Projects
+    Route::prefix('projects')->name('projects.')->controller(ProjectController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/getdata', 'getdata')->name('getdata');
         Route::post('/store', 'store')->name('store');
