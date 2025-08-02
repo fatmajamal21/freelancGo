@@ -75,8 +75,21 @@ class DatabaseSeeder extends Seeder
         // give per to user
         // $user = Admin::find(1);
         // $user->syncRoles('super');
-        /*
 
-        */
+        $models = ['User'];
+        $actions = ['store', 'view', 'update', 'delete'];
+
+        $super =  Role::firstOrCreate(['name' => 'super', 'guard_name' => 'admin']);
+        foreach ($models as $model) {
+            foreach ($actions as $action) {
+                $permName = "$model.$action";
+                $permission = Permission::firstOrCreate([
+                    'name' => $permName,
+                    'guard_name' => 'admin',
+                ]);
+
+                $super->givePermissionTo($permission);
+            }
+        }
     }
 }

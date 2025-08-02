@@ -20,26 +20,14 @@ class AuthController extends Controller
         return view('auth.login', compact('guard'));
     }
 
-    // function login(Request $request)
-    // {
-    //     $guard = $request->route('guard');
-    //     $data = $request->validate([
-    //         'email' => ['required', 'email'],
-    //         'password' => ['required', 'string', 'min:8']
-    //     ]);
-
-    //     if (Auth::guard($guard)->attempt($data, $request->filled('remember'))) {
-    //         return redirect()->route("{$guard}.dashboard");
-    //     }
-    //     return redirect()->back();
-    // }
-    public function login(Request $request)
+    function login(Request $request)
     {
-        $guard = $request->route('guard'); // هاد لازم يكون متوفر في رابط الراوت
+        $guard = $request->route('guard');
         $data = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string|min:8',
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string', 'min:8']
         ]);
+
 
         dd([
             'guard' => $guard,
@@ -54,7 +42,6 @@ class AuthController extends Controller
         if (Auth::guard($guard)->attempt($data, $request->filled('remember'))) {
             return redirect()->route("{$guard}.dashboard");
         }
-
         return redirect()->back();
     }
 
