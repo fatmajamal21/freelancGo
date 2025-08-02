@@ -36,7 +36,7 @@
                             <div class="form-group">
                                 <label><i class="fas fa-user-tag"></i> نوع الحساب</label>
                                 <div class="account-type">
-                                    <a href="{{ route('client.register') }}">
+                                    <a href="{{ route('web.register') }}">
                                         <label for="client">
                                             <i class="fas fa-briefcase"></i>
                                             <span>عميل</span>
@@ -58,7 +58,7 @@
 
                         <!-- Step 2: Personal Information -->
                         <div class="form-step" id="step2">
-                           <div class="form-group mb-3">
+                            <div class="form-group">
                                 <label for="fullname"><i class="fas fa-user"></i> الاسم الكامل</label>
                                 <div class="input-with-icon">
                                     <i class="fas fa-user"></i>
@@ -67,7 +67,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group mb-3">
+                            <div class="form-group">
                                 <label for="email"><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
                                 <div class="input-with-icon">
                                     <i class="fas fa-envelope"></i>
@@ -76,7 +76,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group mb-3">
+                            <div class="form-group">
                                 <label for="password"><i class="fas fa-lock"></i> كلمة المرور</label>
                                 <div class="input-with-icon">
                                     <i class="fas fa-lock"></i>
@@ -85,7 +85,7 @@
                                 </div>
                             </div>
 
-                           <div class="form-group mb-3">
+                            <div class="form-group">
                                 <label for="confirmPassword"><i class="fas fa-lock"></i> تأكيد كلمة المرور</label>
                                 <div class="input-with-icon">
                                     <i class="fas fa-lock"></i>
@@ -115,7 +115,7 @@
                                     <div class="category-item">
                                         <input type="checkbox" id="contentWriting">
                                         <label for="contentWriting">كتابة المحتوى</label>
-                                    {{-- </div>
+                                    </div>
                                     <div class="category-item">
                                         <input type="checkbox" id="marketing">
                                         <label for="marketing">التسويق الرقمي</label>
@@ -130,7 +130,7 @@
                                     </div>
                                     <div class="category-item">
                                         <input type="checkbox" id="seo">
-                                        <label for="seo">تحسين محركات البحث</label> --}}
+                                        <label for="seo">تحسين محركات البحث</label>
                                     </div>
                                 </div>
                             </div>

@@ -13,13 +13,21 @@ return new class extends Migration
     {
         Schema::create('freelancers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('fullname');
+            $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('verification_token', 100)->nullable()->unique();
-            $table->timestamp('verification_token_send_at')->nullable();
-            $table->timestamp('verification_token_sent_at')->nullable();
+            $table->string('phone');
+            $table->string('country');
+            $table->text('bio')->nullable();
+            $table->float('rating')->default(0);
+            $table->unsignedInteger('completed_projects')->default(0);
+            $table->date('registration_date')->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('verification_token', 64)->nullable();
+            $table->timestamp('verification_token_sent_at')->nullable();
+            $table->boolean('is_verified_id_card')->default(false);
+            $table->integer('points_balance')->default(0);
             $table->timestamps();
         });
     }

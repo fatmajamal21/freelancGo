@@ -3,15 +3,13 @@
 namespace App\Models;
 
 use App\Notifications\ForgetPasswordNotification;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
-
 
 class Freelancer extends Authenticatable
 {
-    use Notifiable, HasRoles;
+    use Notifiable, HasFactory;
     protected $guarded = [];
 
     public function sendPasswordResetNotification($token)

@@ -27,7 +27,44 @@ Route::get('confirm', function () {
 
 // dashboard admin routes :
 Route::prefix('admin/')->name('admin.')->middleware('auth:admin')->group(function () {
+    Route::prefix('admins/')->controller(UserController::class)->name('admin.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/getdata', 'getdata')->name('getdata');
+        Route::post('/store', 'store')->name('store');
+        Route::post('/update', 'update')->name('update');
+        Route::post('/delete', 'delete')->name('delete');
+    });
     Route::prefix('users/')->controller(UserController::class)->name('user.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/getdata', 'getdata')->name('getdata');
+        Route::post('/store', 'store')->name('store');
+        Route::post('/update', 'update')->name('update');
+        Route::post('/delete', 'delete')->name('delete');
+    });
+    Route::prefix('freelancers/')->controller(UserController::class)->name('freelancer.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/getdata', 'getdata')->name('getdata');
+        Route::post('/store', 'store')->name('store');
+        Route::post('/update', 'update')->name('update');
+        Route::post('/delete', 'delete')->name('delete');
+    });
+    Route::prefix('verification/')->controller(UserController::class)->name('verification.')->group(function () {
+        Route::prefix('users/')->controller(UserController::class)->name('user.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/getdata', 'getdata')->name('getdata');
+            Route::post('/store', 'store')->name('store');
+            Route::post('/update', 'update')->name('update');
+            Route::post('/delete', 'delete')->name('delete');
+        });
+        Route::prefix('freelancers/')->controller(UserController::class)->name('freelancer.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/getdata', 'getdata')->name('getdata');
+            Route::post('/store', 'store')->name('store');
+            Route::post('/update', 'update')->name('update');
+            Route::post('/delete', 'delete')->name('delete');
+        });
+    });
+    Route::prefix('projects/')->controller(UserController::class)->name('projects.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/getdata', 'getdata')->name('getdata');
         Route::post('/store', 'store')->name('store');
@@ -37,8 +74,8 @@ Route::prefix('admin/')->name('admin.')->middleware('auth:admin')->group(functio
 });
 
 // auth macro routes :
-// Route::authGuard('', 'web', 'web');
-Route::authGuard('client', 'client', 'client');
+Route::authGuard('', 'web', 'web');
+// Route::authGuard('client', 'client', 'client');
 Route::authGuard('freelancer', 'freelancer', 'freelancer');
 Route::authGuard('admin', 'admin', 'admin', ['register' => false]);
 

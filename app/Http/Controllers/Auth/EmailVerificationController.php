@@ -29,6 +29,6 @@ class EmailVerificationController extends Controller
             'email_verified_at' => now(),
         ]);
 
-        return redirect()->route("{$guard}.login")->with('status', 'تم التحقق من بريدك الإلكتروني بنجاح.');
+        return 'تمت العملية بنجاح ';
     }
 }

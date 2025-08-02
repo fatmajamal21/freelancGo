@@ -2,20 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Notifications\ForgetPasswordNotification;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
 
 class Admin extends Authenticatable
 {
-    use Notifiable, HasRoles;
-    protected $guarded = [];
+    use HasFactory, HasRoles, Notifiable;
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
 
-
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new ForgetPasswordNotification($token, 'admin'));
-    }
+    protected $guard_name = 'admin';
 }
