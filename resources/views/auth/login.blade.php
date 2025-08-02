@@ -2,7 +2,7 @@
 {{-- @php
   $guard = 'admin'; // أو 'web' أو حسب نوع المستخدم الحالي
 @endphp --}}
-@php
+{{-- @php
     if (Auth::guard('admin')->check()) {
         $guard = 'admin';
     } elseif (Auth::guard('freelancer')->check()) {
@@ -10,7 +10,7 @@
     } else {
         $guard = 'web'; // المستخدم العادي
     }
-@endphp
+@endphp --}}
 
 @section('content')
     <section class="login-section">

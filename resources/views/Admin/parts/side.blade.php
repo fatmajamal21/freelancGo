@@ -20,19 +20,19 @@
                </a>
                   <ul>
                      <li>
-               <a href="{{ route('admin.admin.index') }}">
+               <a href="{{ route('admin.admins.index') }}">
                     <i class="bi bi-circle"></i>
                      @lang('الأدمن')
                 </a>
                 </li>
                 <li>
-               <a href="{{ route('admin.user.index') }}">
+               <a href="{{ route('admin.users.index') }}">
                 <i class="bi bi-circle"></i>
                  @lang('العملاء')
                </a>
                </li>
                <li>
-               <a href="{{ route('admin.freelancer.index') }}">
+               <a href="{{ route('admin.freelancers.index') }}">
                     <i class="bi bi-circle"></i>
                      @lang('المستقلون')
                 </a>
@@ -51,13 +51,13 @@
                </a>
                   <ul>
                    <li>
-               <a href="{{ route('admin.verification.user.index') }}">
+               <a href="{{ route('admin.verification.users.index') }}">
                     <i class="bi bi-circle"></i>
                     <div class="menu-title">@lang('توثيق العملاء')</div>
                 </a>
                 </li>
                      <li>
-               <a href="{{ route('admin.verification.freelancer.index') }}">
+               <a href="{{ route('admin.verification.freelancers.index') }}">
                     <i class="bi bi-circle"></i>
                   <div class="menu-title">@lang('توثيق المستقلين')</div>
                 </a>

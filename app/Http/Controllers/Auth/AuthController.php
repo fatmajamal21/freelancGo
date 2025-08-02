@@ -29,15 +29,15 @@ class AuthController extends Controller
         ]);
 
 
-        dd([
-            'guard' => $guard,
-            'data' => $data,
-            'user_found' => \App\Models\Admin::where('email', $data['email'])->first(),
-            'password_matches' => Hash::check(
-                $data['password'],
-                optional(\App\Models\Admin::where('email', $data['email'])->first())->password
-            ),
-        ]);
+        // dd([
+        //     'guard' => $guard,
+        //     'data' => $data,
+        //     'user_found' => \App\Models\Admin::where('email', $data['email'])->first(),
+        //     'password_matches' => Hash::check(
+        //         $data['password'],
+        //         optional(\App\Models\Admin::where('email', $data['email'])->first())->password
+        //     ),
+        // ]);
 
         if (Auth::guard($guard)->attempt($data, $request->filled('remember'))) {
             return redirect()->route("{$guard}.dashboard");
