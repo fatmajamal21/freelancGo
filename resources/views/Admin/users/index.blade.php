@@ -205,7 +205,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="form_add" action="{{ route('admin.user.store') }}" id="form_add" enctype="multipart/form-data"
+                    <form class="form_add" action="{{ route('admin.users.store') }}" id="form_add" enctype="multipart/form-data"
                         action="" method="POST">
                         @csrf
                         <div class="mb-2 form-group">
@@ -402,19 +402,27 @@
                         </div>
                     </div>
  --}}
-                        <div class="my-3 d-flex gap-2">
-                            <button type="submit" id="search_btn" style="background-color: #7212df"
-                                class="btn text-white col-6">
-                                @lang('بحث')
-                            </button>
-                            <button id="clear_btn" class="btn btn-secondary col-6" type="button">
-                                <span><i class="fa fa-undo"></i> إعادة تهيئة</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                          <div class="row g-3">
+    <div class="col-lg-4 col-md-6 col-12">
+        <label class="form-label">@lang('اسم المستخدم')</label>
+        <input placeholder="@lang('اسم المستخدم')" class="form-control" type="text" id="search_name">
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-12">
+        <label class="form-label">@lang('البريد الالكتروني')</label>
+        <input placeholder="@lang('البريد الالكتروني')" class="form-control" type="text" id="search_email">
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-12 d-flex align-items-end gap-2">
+        <button type="submit" id="search_btn" style="background-color: #7212df" class="btn text-white w-50">
+            @lang('بحث')
+        </button>
+        <button id="clear_btn" class="btn btn-secondary w-50" type="button">
+            <i class="fa fa-undo"></i> إعادة تهيئة
+        </button>
+    </div>
+</div>
+
 
 
         <div class="row">
@@ -425,14 +433,18 @@
                             <div class="col">
                                 <h5 class="mb-0">@lang('المنتجات')</h5>
                             </div>
-                            <div class="col">
-                                <div class="d-flex align-items-center justify-content-end gap-3 cursor-pointer">
-                                    <a data-bs-toggle="modal" data-bs-target="#add-modal" style="color: white"
-                                        href="#" class="add-product-btn">
-                                        <i class="fas fa-plus"></i> إضافة منتج
-                                    </a>
-                                </div>
-                            </div>
+<div class="col-12 col-md-3">
+    <div class="d-flex justify-content-end">
+        <a data-bs-toggle="modal" data-bs-target="#add-modal"
+           href="#"
+           class="btn btn-primary w-100 text-white"
+           style="background-color: #7212df; font-size: 16px; padding: 10px 16px; border-radius: 8px;">
+            <i class="fas fa-plus me-1"></i> إضافة عميل
+        </a>
+    </div>
+</div>
+
+
                         </div>
                     </div>
                     <div class="card-body">
@@ -462,12 +474,14 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.user.getdata') }}",
+                    url: "{{ route('admin.users.getdata') }}",
                     data: function(d) {
                         d.name = $('#search_name').val();
-                        d.price = $('#search_price').val();
-                        d.subcat = $('#search_subcat').val();
-                        d.maincat = $('#search_maincat').val();
+                            // d.name = $('#search_name').val();
+
+                        // d.price = $('#search_price').val();
+                        // d.subcat = $('#search_subcat').val();
+                        // d.maincat = $('#search_maincat').val();
                         d.code = $('#search_code').val();
                     }
                 },

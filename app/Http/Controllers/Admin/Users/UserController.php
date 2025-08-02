@@ -14,50 +14,50 @@ class UserController extends Controller
     public function index()
     {
         // abort_unless(auth()->guard('admin')->user()->can('User.view'), 403);
-        return view('admin.user.index');
+        return view('admin.users.index');
     }
 
-    // function getdata(Request $request)
-    // {
+    function getdata(Request $request)
+    {
 
-    //     $users = User::query();
-    //     return DataTables::of($users)
-    //         ->addIndexColumn()
-    //         ->addColumn('action', function ($qur) {
-    //             $data_attr = ' ';
-    //             $data_attr .= 'data-id="' . $qur->id . '" ';
-    //             $data_attr .= 'data-name="' . $qur->name . '" ';
-    //             $data_attr .= 'data-email="' . $qur->email . '" ';
+        $users = User::query();
+        return DataTables::of($users)
+            ->addIndexColumn()
+            ->addColumn('action', function ($qur) {
+                $data_attr = ' ';
+                $data_attr .= 'data-id="' . $qur->id . '" ';
+                $data_attr .= 'data-name="' . $qur->name . '" ';
+                $data_attr .= 'data-email="' . $qur->email . '" ';
 
-    //             $action = '';
-    //             $action .= '<div class="d-flex align-items-center gap-3 fs-6">';
+                $action = '';
+                $action .= '<div class="d-flex align-items-center gap-3 fs-6">';
 
-    //             $action .= '<a ' . $data_attr . ' data-bs-toggle="modal" data-bs-target="#update-modal" class="text-warning update_btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Edit info" aria-label="Edit"><i class="bi bi-pencil-fill "></i></a>';
+                $action .= '<a ' . $data_attr . ' data-bs-toggle="modal" data-bs-target="#update-modal" class="text-warning update_btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Edit info" aria-label="Edit"><i class="bi bi-pencil-fill "></i></a>';
 
-    //             $action .= '     <a data-id="' . $qur->id . '"  data-url="" class="text-danger delete-btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Delete" aria-label="Delete"><i class="bi bi-trash-fill"></i></a>';
+                $action .= '     <a data-id="' . $qur->id . '"  data-url="" class="text-danger delete-btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Delete" aria-label="Delete"><i class="bi bi-trash-fill"></i></a>';
 
 
-    //             $action .= '</div>';
+                $action .= '</div>';
 
-    //             return $action;
-    //         })
-    //         ->rawColumns(['status', 'action', 'gender'])
-    //         ->make(true);
-    // }
+                return $action;
+            })
+            ->rawColumns(['status', 'action', 'gender'])
+            ->make(true);
+    }
 
-    // function store(Request $request)
-    // {
+    function store(Request $request)
+    {
 
-    //     $user = User::create([
-    //         'name' => $request->name,
-    //         'email' => $request->email,
-    //         'password' => Hash::make('password'),
-    //     ]);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make('password'),
+        ]);
 
-    //     return response()->json([
-    //         'success' => 'تمت العملية بنجاح'
-    //     ]);
-    // }
+        return response()->json([
+            'success' => 'تمت العملية بنجاح'
+        ]);
+    }
 
 
     /*

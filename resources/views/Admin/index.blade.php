@@ -116,17 +116,14 @@
                        </a>
                     </li>
                     <li><hr class="dropdown-divider"></li>
-<li>
-  <form method="POST" action="{{ route($guard . '.logout') }}">
-    @csrf
-    <button type="submit" class="dropdown-item d-flex align-items-center" style="border: none; background: none; padding: 0;">
-      <i class="bi bi-lock-fill"></i>
-      <span class="ms-3">تسجيل الخروج</span>
-    </button>
-  </form>
-</li>
-
-                    
+                    <li>
+                      <a class="dropdown-item" href="authentication-signup-with-header-footer.html">
+                         <div class="d-flex align-items-center">
+                           <div class=""><i class="bi bi-lock-fill"></i></div>
+                           <div class="ms-3"><span>Logout</span></div>
+                         </div>
+                       </a>
+                    </li>
                 </ul>
               </li>
               <li class="nav-item dropdown dropdown-large">
@@ -810,4 +807,4 @@
 
 </body>
 
-</html
+</html>
