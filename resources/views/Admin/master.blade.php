@@ -6,6 +6,7 @@
     @yield('css')
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
     <link rel="icon" href="{{ asset('admin_assets_rtl/images/favicon-32x32.png') }}" type="image/png" />
     <!--plugins-->
@@ -23,6 +24,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.2.2/css/fixedColumns.dataTables.min.css">
+
+
+
+    <!-- DataTables CSS -->
+<link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+
 
     <!-- loader-->
     <link href="{{ asset('admin_assets_rtl/css/pace.min.css') }}" rel="stylesheet" />
@@ -311,6 +320,11 @@
             box-shadow: 0px 0px 0 .25rem rgb(142 13 253 / 25%)
         }
     </style>
+
+    <!-- DataTables + Bootstrap 5 CSS -->
+<link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
     <title>@yield('title', env('APP_NAME'))</title>
 </head>
 
@@ -533,7 +547,7 @@
     <!-- Bootstrap bundle JS -->
     <script src="{{ asset('admin_assets_rtl/js/bootstrap.bundle.min.js') }}"></script>
     <!--plugins-->
-    <script src="{{ asset('admin_assets_rtl/js/jquery.min.js') }}"></script>
+    {{-- <script src="{{ asset('admin_assets_rtl/js/jquery.min.js') }}"></script> --}}
     <script src="{{ asset('admin_assets_rtl/plugins/simplebar/js/simplebar.min.js') }}"></script>
     <script src="{{ asset('admin_assets_rtl/plugins/metismenu/js/metisMenu.min.js') }}"></script>
     <script src="{{ asset('admin_assets_rtl/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
@@ -543,6 +557,13 @@
     <script src="{{ asset('datatable_custom/js/vendor/dataTables.bootstrap5.js') }}"></script>
     <script src="{{ asset('datatable_custom/js/vendor/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('toastr/app-assets/vendors/js/extensions/toastr.min.js') }}"></script>
+
+    <!-- jQuery (يجب أن يكون أولاً) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{{-- <!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script> --}}
 
     <script src="{{ asset('admin_assets_rtl/js/app.js') }}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -821,6 +842,16 @@
             });
         });
     </script>
+    <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap (إذا كنت بتستخدمه) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
 </body>
 
 </html>

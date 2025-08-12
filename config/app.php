@@ -16,6 +16,8 @@ return [
     |
     */
 
+
+
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
@@ -180,5 +182,18 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
+
+
+    'models' => [
+        'العملاء' => \App\Models\User::class,
+        'المستقلون' => \App\Models\Freelancer::class,
+    ],
+
+
+    'guards' => [
+        'المستخدم' => 'web',
+        'المستقل' => 'freelancer',
+        'المسؤول' => 'admin',
+    ],
 
 ];

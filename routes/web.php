@@ -1,41 +1,136 @@
 <?php
 
+use App\Http\Controllers\Admin\Admin\AdminController;
+use App\Http\Controllers\Admin\Freelancer\FreelancerController;
+use App\Http\Controllers\Admin\Permissions\PermissionController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProjectController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-//
+use App\Http\Controllers\Admin\Role\RoleController;
+use App\Http\Controllers\Admin\Text\TextMail;
+use App\Http\Controllers\Admin\Text\TextMailController;
+use App\Http\Controllers\Admin\Verification\FreelancerrVerificationController;
+use App\Http\Controllers\Admin\Verification\FreelancerVerificationController;
+use App\Http\Controllers\Admin\Verification\UesrVerificationController;
+use App\Http\Controllers\Admin\Verification\UserVerificationController;
+use Spatie\Permission\Models\Permission;
+use App\Models\Admin;
+use Illuminate\Http\Request;
 
 Route::get('/{guard}/verify-email', [EmailVerificationController::class, 'verify'])->name('verification.verify')->where('guard', 'web|freelancer');
 
 Route::get('confirm', function () {
-    return 'تحقق من البريد يا شاطر ';
+    return 'تحقق من البريد يا شاطر';
 })->name('con');
 
 
-// dashboard admin routes :
+
+Route::get('file', function () {
+    return view('file');
+});
+
+Route::post('file', function (Request $request) {
+    // Retrieve the admin by ID
+    $admin = Admin::query()->where('id', '01k2f3n5cpb5zjhhbx097zw5we')->first();
+
+    // Generate the image name using a unique identifier
+    $nameImage = 'FreeLnaGo_' . time() . '_' . rand() . '.' .  $request->file('file')->getClientOriginalExtension();
+
+    // Store the file in the 'admins' directory within 'public' disk
+    $path = $request->file('file')->storeAs('admins', $nameImage, 'public');
+
+    // Create an image record in the database and associate it with the admin
+    $admin->images()->create([
+        'url' => $path,
+    ]);
+
+    // Use dd() to dump and die, checking the admin data and related image
+    dd($admin->images);  // This will show the related images for the admin
+
+    return 'تم تخزين الصورة ';
+})->name('file');
+
+
+
+
+
+
+// Routes for admin dashboard
 Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function () {
-    // Admins
-    Route::prefix('admins')->name('admins.')->controller(UserController::class)->group(function () {
+    // Dashboard Route
+    Route::get('/panel', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboardadmin');
+
+
+    Route::get('/texts', [TextMailController::class, 'index'])->name('text.index');
+    Route::post('/texts', [TextMailController::class, 'store'])->name('text.store');
+
+
+
+    // لإحضار المستخدمين للجدول
+    Route::get('/users/data', [TextMailController::class, 'getdata'])->name('user.getdata');
+
+
+    // Route::prefix('texts/')->controller(TextMailController::class)->name('text.')->group(function () {
+    //     Route::get('/', 'index')->name('index');
+    //     Route::get('/getdata', 'getdata')->name('getdata');
+    //     Route::post('/store', 'store')->name('store');
+    //     Route::post('/update', 'update')->name('update');
+    //     Route::post('/delete', 'delete')->name('delete');
+    // });
+
+    // Permissions Routes
+    Route::prefix('permissions/')->controller(PermissionController::class)->name('permission.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/getdata', 'getdata')->name('getdata');
         Route::post('/store', 'store')->name('store');
         Route::post('/update', 'update')->name('update');
         Route::post('/delete', 'delete')->name('delete');
     });
-    // Users
+
+    // Roles Routes
+    Route::prefix('roles/')->controller(RoleController::class)->name('role.')->group(function () {
+        // Route to get role data for editing (including guards and permissions)
+        Route::get('/{id}/edit')->name('edit');
+
+        Route::get('/', 'index')->name('index');
+        Route::get('/getdata', 'getdata')->name('getdata');
+        Route::post('/store', 'store')->name('store');
+        Route::post('/update', 'update')->name('update');
+        Route::post('/delete', 'delete')->name('delete');
+    });
+
+    // Verification - Freelancers
+    Route::prefix('verification/freelancers')->name('verification.freelancers.')->controller(FreelancerVerificationController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/store', 'store')->name('store');
+        Route::post('/update', 'update')->name('update');
+        Route::get('/getdata', 'getdata')->name('getdata');
+        Route::post('/toggle', 'toggle')->name('toggle');
+        Route::post('/delete', 'delete')->name('delete');
+    });
+
+    // Verification - Users
+    Route::prefix('verification/users')->name('verification.users.')->controller(UserVerificationController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/store', 'store')->name('store');
+        Route::post('/update', 'update')->name('update');
+        Route::get('/getdata', 'getdata')->name('getdata');
+        Route::post('/toggle', 'toggle')->name('toggle');
+        Route::post('/delete', 'delete')->name('delete');
+    });
+
+    // Admins Routes
+    Route::prefix('admins')->name('admins.')->controller(AdminController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/getdata', 'getdata')->name('getdata');
+        Route::post('/store', 'store')->name('store');
+        Route::post('/update', 'update')->name('update');
+        Route::post('/delete', 'delete')->name('delete');
+    });
+
+    // Users Routes
     Route::prefix('users')->name('users.')->controller(UserController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/getdata', 'getdata')->name('getdata');
@@ -44,31 +139,16 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
         Route::post('/delete', 'delete')->name('delete');
     });
 
-    // Freelancers
-    Route::prefix('freelancers')->name('freelancers.')->controller(UserController::class)->group(function () {
+    // Freelancers Routes
+    Route::prefix('freelancers')->name('freelancers.')->controller(FreelancerController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/getdata', 'getdata')->name('getdata');
         Route::post('/store', 'store')->name('store');
         Route::post('/update', 'update')->name('update');
         Route::post('/delete', 'delete')->name('delete');
     });
-    // Verification - Users
-    Route::prefix('verification/users')->name('verification.users.')->controller(UserController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/getdata', 'getdata')->name('getdata');
-        Route::post('/store', 'store')->name('store');
-        Route::post('/update', 'update')->name('update');
-        Route::post('/delete', 'delete')->name('delete');
-    });
-    // Verification - Freelancers
-    Route::prefix('verification/freelancers')->name('verification.freelancers.')->controller(UserController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/getdata', 'getdata')->name('getdata');
-        Route::post('/store', 'store')->name('store');
-        Route::post('/update', 'update')->name('update');
-        Route::post('/delete', 'delete')->name('delete');
-    });
-    // Projects
+
+    // Projects Routes
     Route::prefix('projects')->name('projects.')->controller(ProjectController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/getdata', 'getdata')->name('getdata');
@@ -76,110 +156,20 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
         Route::post('/update', 'update')->name('update');
         Route::post('/delete', 'delete')->name('delete');
     });
+
+    // Proposals Routes
+    Route::prefix('proposals')->name('proposals.')->controller(\App\Http\Controllers\Admin\ProposalController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/{id}', 'show')->name('show');
+    });
 });
 
-// auth macro routes :
+// Route to get guards
+Route::get('/admin/guards', function () {
+    return response()->json(['admin', 'web']);  // إرجاع قائمة المستحقين المتاحة
+})->name('admin.role.getGuards');
+
+// Authentication routes
 Route::authGuard('', 'web', 'web');
-// Route::authGuard('client', 'client', 'client');
 Route::authGuard('freelancer', 'freelancer', 'freelancer');
 Route::authGuard('admin', 'admin', 'admin', ['register' => false]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Route::get('verify-email/{guard}', [EmailVerificationController::class, 'verify'])->name('verification.verify')->where('guard', 'web|freelancer');
-// Route::get('conf', function () {
-//     return view('auth.confirmation');
-// })->name('confirmation');
-
-
-// client Routes
-// Route::prefix('client/')->name('client.')->group(function () {
-//     Route::controller(AuthController::class)->group(function () {
-//         Route::get('login',  'indexLogin')->name('login')->defaults('guard', 'client');
-//         Route::post('login',  'login')->name('login.submit')->defaults('guard', 'client');
-
-//         Route::get('register',  'indexRegister')->name('register')->defaults('guard', 'client');
-//         Route::post('register',  'register')->name('register.submit')->defaults('guard', 'client');
-
-//         Route::get('forget-password',  'indexForgetPassword')->name('forget-password')->defaults('guard', 'client');
-//         Route::post('forget-password',  'forgetPassword')->name('forget-password.submit')->defaults('guard', 'client');
-
-//         Route::get('reset-password/{token}',  'showResetForm')->name('password.reset')->defaults('guard', 'client');
-//         Route::post('reset-password', 'resetPassword')->name('password.update')->defaults('guard', 'client');
-
-//         Route::get('dashboard', 'dashboard')->name('dashboard')->defaults('guard', 'client');
-//     });
-// });
-
-// // Admin Routes
-// Route::prefix('admin/')->name('admin.')->group(function () {
-//     Route::controller(AuthController::class)->group(function () {
-//         Route::get('login', 'indexLogin')->name('login')->defaults('guard', 'admin');
-//         Route::post('login', 'login')->name('login.submit')->defaults('guard', 'admin');
-
-//         Route::get('forget-password',  'indexForgetPassword')->name('forget-password')->defaults('guard', 'admin');
-//         Route::post('forget-password',  'forgetPassword')->name('forget-password.submit')->defaults('guard', 'admin');
-
-//         Route::get('reset-password/{token}',  'showResetForm')->name('password.reset')->defaults('guard', 'admin');
-//         Route::post('reset-password', 'resetPassword')->name('password.update')->defaults('guard', 'admin');
-
-//         Route::get('dashboard', 'dashboard')->name('dashboard')->defaults('guard', 'admin');
-//     });
-// });
-
-
-// // Freelancer Routes
-// Route::prefix('freelancer/')->name('freelancer.')->group(function () {
-//     Route::controller(AuthController::class)->group(function () {
-//         Route::get('login',  'indexLogin')->name('login')->defaults('guard', 'freelancer');
-//         Route::post('login',  'login')->name('login.submit')->defaults('guard', 'freelancer');
-
-//         Route::get('register',  'indexRegister')->name('register')->defaults('guard', 'freelancer');
-//         Route::post('register',  'register')->name('register.submit')->defaults('guard', 'freelancer');
-
-//         Route::get('forget-password',  'indexForgetPassword')->name('forget-password')->defaults('guard', 'freelancer');
-//         Route::post('forget-password',  'forgetPassword')->name('forget-password.submit')->defaults('guard', 'freelancer');
-
-//         Route::get('reset-password/{token}',  'showResetForm')->name('password.reset')->defaults('guard', 'freelancer');
-//         Route::post('reset-password', 'resetPassword')->name('password.update')->defaults('guard', 'freelancer');
-
-//         Route::get('dashboard', 'dashboard')->name('dashboard')->defaults('guard', 'freelancer');
-//     });
-// });
-
-
-
-
-// User Routes
-// Route::controller(AuthController::class)->group(function () {
-
-
-//     Route::get('forget-password', function () {
-//         return view('auth.forget-password');
-//     })->name('forget-password');
-
-
-//     Route::get('login',  'indexLogin')->name('web.login')->defaults('guard', 'web');
-//     Route::post('login', 'login')->name('web.login.submit')->defaults('guard', 'web');
-
-//     Route::get('register',  'indexRegister')->name('web.register')->defaults('guard', 'web');
-//     Route::post('register',  'register')->name('web.register.submit')->defaults('guard', 'web');
-
-//     Route::get('forget-password',  'indexForgetPassword')->name('forget-password')->defaults('guard', 'web');
-//     Route::post('forget-password',  'forgetPassword')->name('forget-password.submit')->defaults('guard', 'web');
-
-//     Route::get('reset-password/{token}',  'showResetForm')->name('password.reset')->defaults('guard', 'web');
-//     Route::post('reset-password', 'resetPassword')->name('password.update')->defaults('guard', 'web');
-//     Route::get('dashboard', 'dashboard')->name('dashboard')->defaults('guard', 'web');
-// });

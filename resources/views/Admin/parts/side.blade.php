@@ -12,6 +12,36 @@
     <!--navigation-->
     <ul class="metismenu" id="menu">
 
+<li class="menu-label">@lang('الاعدادات ')</li>
+
+<li>
+    <a href="{{ route('admin.dashboardadmin') }}">
+        <div class="parent-icon"><i class="bi bi-shield-lock"></i></div>
+        <div class="menu-title">@lang('صلاحياتي')</div>
+    </a>
+</li>
+
+<li>
+    <a href="javascript:;" class="has-arrow">
+        <div class="parent-icon"><i class="lni lni-users"></i></div>
+        <div class="menu-title">@lang('أدارة الصلاحيات و الادوار')</div>
+    </a>
+    <ul>
+        <li>
+            <a href="{{ route('admin.permission.index') }}">
+                <i class="bi bi-circle"></i>
+                @lang('الاذونات')
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.role.index') }}">
+                <i class="bi bi-circle"></i>
+                @lang('الصلاحيات')
+            </a>
+        </li>
+    </ul>
+</li>
+
         <!-- المستخدمين -->
         <li class="menu-label">@lang('المستخدمين')</li>
         <li>
@@ -59,29 +89,44 @@
             </ul>
         </li>
 
-        <!-- إدارة المشاريع -->
-        <li class="menu-label">@lang('إدارة المشاريع')</li>
+   <!-- إدارة المشاريع -->
+<li class="menu-label">@lang('إدارة المشاريع')</li>
+<li>
+    <a href="javascript:;" class="has-arrow">
+        <div class="parent-icon"><i class="lni lni-briefcase"></i></div>
+        <div class="menu-title">@lang('المشاريع')</div>
+    </a>
+    <ul>
         <li>
-            <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class="lni lni-briefcase"></i></div>
-                <div class="menu-title">@lang('المشاريع')</div>
+            <a href="{{ route('admin.projects.index') }}">
+                <i class="bi bi-circle"></i> @lang('جميع المشاريع')
             </a>
-            <ul>
-                <li>
-                    <a href="{{ route('admin.projects.index') }}">
-                        <i class="bi bi-circle"></i> @lang('جميع المشاريع')
-                    </a>
-                </li>
-                {{-- روابط إضافية لاحقًا بعد تعريف روتاتها --}}
-                {{-- 
-                <li><a href="{{ route('admin.projects.index', ['status' => 'completed']) }}"><i class="bi bi-circle"></i> @lang('المكتملة')</a></li>
-                <li><a href="{{ route('admin.projects.index', ['status' => 'late']) }}"><i class="bi bi-circle"></i> @lang('المتأخرة')</a></li>
-                <li><a href="{{ route('admin.projects.index', ['status' => 'rejected']) }}"><i class="bi bi-circle"></i> @lang('المرفوضة')</a></li>
-                <li><a href="{{ route('admin.projects.offers') }}"><i class="bi bi-circle"></i> @lang('العروض المقدمة')</a></li>
-                --}}
-            </ul>
         </li>
+        {{-- <li>
+            <a href="{{ route('admin.projects.index', ['status' => 'completed']) }}">
+                <i class="bi bi-circle"></i> @lang('المكتملة')
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.projects.index', ['status' => 'late']) }}">
+                <i class="bi bi-circle"></i> @lang('المتأخرة')
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.projects.index', ['status' => 'rejected']) }}">
+                <i class="bi bi-circle"></i> @lang('المرفوضة')
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.proposals.index') }}">
+                <i class="bi bi-circle"></i> @lang('العروض المقدمة')
+            </a>
+        </li> --}}
+    </ul>
+</li>
 
+
+   
         <!-- إدارة التسجيل -->
         <li class="menu-label">@lang('إدارة التسجيل')</li>
         <li>
