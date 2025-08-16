@@ -27,16 +27,21 @@ Route::get('confirm', function () {
 
 
 
+
 Route::get('file', function () {
     return view('file');
-});
+})->name('file');
 
 Route::post('file', function (Request $request) {
     // Retrieve the admin by ID
-    $admin = Admin::query()->where('id', '01k2f3n5cpb5zjhhbx097zw5we')->first();
+    $admin = Admin::query()->where('id', '01k2s386tztjr3bhkksbqts905')->first();
+
+    if (!$admin) {
+        return redirect()->route('file')->with('error', 'المسؤول غير موجود');
+    }
 
     // Generate the image name using a unique identifier
-    $nameImage = 'FreeLnaGo_' . time() . '_' . rand() . '.' .  $request->file('file')->getClientOriginalExtension();
+    $nameImage = 'FreeLnaGo_' . time() . '_' . rand() . '.' . $request->file('file')->getClientOriginalExtension();
 
     // Store the file in the 'admins' directory within 'public' disk
     $path = $request->file('file')->storeAs('admins', $nameImage, 'public');
@@ -46,12 +51,9 @@ Route::post('file', function (Request $request) {
         'url' => $path,
     ]);
 
-    // Use dd() to dump and die, checking the admin data and related image
-    dd($admin->images);  // This will show the related images for the admin
-
-    return 'تم تخزين الصورة ';
-})->name('file');
-
+    // Redirect back to the same page with success message
+    return redirect()->route('file')->with('success', 'تم تخزين الصورة بنجاح');
+});
 
 
 

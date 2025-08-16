@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use PHPUnit\Event\Code\Throwable;
 
 class AuthController extends Controller
 {
@@ -20,31 +21,77 @@ class AuthController extends Controller
         return view('auth.login', compact('guard'));
     }
 
-    function login(Request $request)
+    // function login(Request $request)
+    // {
+    //     $guard = $request->route('guard');
+    //     $data = $request->validate([
+    //         'email' => ['required', 'email'],
+    //         'password' => ['required', 'string', 'min:8']
+    //     ]);
+
+
+    //     // dd([
+    //     //     'guard' => $guard,
+    //     //     'data' => $data,
+    //     //     'user_found' => \App\Models\Admin::where('email', $data['email'])->first(),
+    //     //     'password_matches' => Hash::check(
+    //     //         $data['password'],
+    //     //         optional(\App\Models\Admin::where('email', $data['email'])->first())->password
+    //     //     ),
+    //     // ]);
+
+    //     if (Auth::guard($guard)->attempt($data, $request->filled('remember'))) {
+    //         return redirect()->route("{$guard}.dashboard");
+    //     }
+    //     return redirect()->back();
+    // }
+    // تنفيذ تسجيل الدخول
+    public function login(Request $request)
     {
         $guard = $request->route('guard');
+        $table = config("auth.guards.$guard.provider");
+
+        // فلديشن قوي
         $data = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required', 'string', 'min:8']
+            'email' => "required|string|email:rfc,dns|exists:$table,email|max:255",
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'max:64',
+                'regex:/[A-Z]/',          // لازم حرف كبير
+                'regex:/[a-z]/',          // لازم حرف صغير
+                'regex:/[0-9]/',          // لازم رقم
+                'regex:/[^A-Za-z0-9]/',   // لازم رمز خاص
+            ],
+        ], [
+            'email.required'   => 'البريد الإلكتروني مطلوب',
+            'email.email'      => 'صيغة البريد غير صحيحة',
+            'email.exists'     => 'هذا البريد غير مسجل',
+            'password.required' => 'كلمة المرور مطلوبة',
+            'password.min'     => 'كلمة المرور يجب ألا تقل عن 8 أحرف',
+            'password.regex'   => 'كلمة المرور يجب أن تحتوي على حرف كبير وصغير ورقم ورمز',
         ]);
 
+        try {
+            // محاولة تسجيل الدخول
+            if (Auth::guard($guard)->attempt($data, $request->filled('remember'))) {
+                $request->session()->regenerate();
+                return redirect()->route("$guard.dashboard");
+            }
 
-        // dd([
-        //     'guard' => $guard,
-        //     'data' => $data,
-        //     'user_found' => \App\Models\Admin::where('email', $data['email'])->first(),
-        //     'password_matches' => Hash::check(
-        //         $data['password'],
-        //         optional(\App\Models\Admin::where('email', $data['email'])->first())->password
-        //     ),
-        // ]);
-
-        if (Auth::guard($guard)->attempt($data, $request->filled('remember'))) {
-            return redirect()->route("{$guard}.dashboard");
+            // لو كلمة المرور أو الإيميل خطأ
+            return redirect()
+                ->back()
+                ->withErrors(['email' => 'البريد الإلكتروني أو كلمة المرور غير صحيحة'])
+                ->withInput($request->only('email', 'remember'));
+        } catch (Throwable $e) {
+            // أي خطأ غير متوقع
+            return redirect()
+                ->route('login-error')
+                ->with('error', 'حدث خطأ غير متوقع أثناء تسجيل الدخول');
         }
-        return redirect()->back();
     }
-
     function indexRegister(Request $request)
     {
         $guard = $request->route('guard');
