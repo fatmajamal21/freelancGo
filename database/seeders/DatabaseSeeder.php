@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Str; // This is the line that was missing.
 
 class DatabaseSeeder extends Seeder
 {
@@ -110,31 +111,45 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::create([
-        //     'name' => 'Test User',
-        //     'email' => 'user@example.com',
+        //     'name' => 'Test User1',
+        //     'email' => 'user1@example.com',
         //     'password' => Hash::make('123456789'),
         // ]);
 
         // \App\Models\Admin::create([
-        //     'name' => 'Test Admin',
-        //     'email' => 'admin@example.com',
+        //     'name' => 'Test Admin1',
+        //     'email' => 'admin1@example.com',
         //     'phone' => '0599166114',
         //     'password' => Hash::make('123456789'),
         // ]);
 
         // \App\Models\Freelancer::create([
-        //     'fullname' => 'Test Freelancer',
-        //     'username' => 'TestFreelancer',
-        //     'phone' => '0599166117',
-        //     'country' => 'gaza',
-        //     'email' => 'freelancer@example.com',
-        //     'password' => Hash::make('123456789'),
+        //     'fullname' => 'Jane Smith',
+        //     'username' => 'janesmith',
+        //     'email' => 'jane.smith@example.com',
+        //     'password' => Hash::make('password123'),
+        //     'experience' => '3-5',
+        //     'phone' => '+9876543210',
+        //     'bio' => 'A skilled web developer with 4 years of experience.',
+        //     'rating' => 4.8,
+        //     'completed_projects' => 50,
+        //     'registration_date' => now()->subMonths(6),
+        //     'email_verified_at' => now(),
+        //     'verification_token' => Str::random(64),
+        //     'verification_token_sent_at' => now(),
+        //     'is_verified_id_card' => true,
+        //     'points_balance' => 500,
         // ]);
 
         // \App\Models\User::create([
-        //     'name' => 'Test User 2',
-        //     'email' => 'user2@example.com',
-        //     'password' => Hash::make('123456789'),
+        //     'fullname' => 'John Doe',
+        //     'username' => 'johndoe',
+        //     'email' => 'john.doe@example.com',
+        //     'bio' => 'A passionate software developer.',
+        //     'phone' => '+1234567890',
+        //     // Hash the password for security.
+        //     // قم بتشفير كلمة المرور للأمان.
+        //     'password' => Hash::make('password123'),
         // ]);
 
         // \App\Models\Admin::create([
@@ -145,11 +160,11 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         // \App\Models\Freelancer::create([
-        //     'fullname' => 'Test Freelancer 2',
-        //     'username' => 'TestFreelancer2',
+        //     'fullname' => 'Test Freelancerq',
+        //     'username' => 'TestFreelancerq',
         //     'phone' => '0599166117',
         //     'country' => 'gaza',
-        //     'email' => 'freelancer2@example.com',
+        //     'email' => 'freelancerq@example.com',
         //     'password' => Hash::make('123456789'),
         // ]);
 

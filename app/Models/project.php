@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Spatie\Permission\Traits\HasRoles;
+use App\Models\Image;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Proposal;
@@ -9,7 +13,7 @@ use App\Models\Proposal;
 
 class project extends Model
 {
-    use HasFactory;
+    use HasFactory, HasRoles, HasUlids;
     protected $fillable = [
         'user_id',
         'title',

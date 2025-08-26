@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project_reviews', function (Blueprint $table) {
+        Schema::create('countries', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->foreignUlid('project_id')->constrained('projects')->onDelete('cascade');
-            $table->foreignUlid('user_id')->constrained('users')->onDelete('cascade');
-            $table->tinyInteger('rating');
-            $table->text('comment')->nullable();
+            $table->string('code', 2)->unique(); /// EG , Us
+            $table->string('name_ar');
+            $table->string('phone_code');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project_reviews');
+        Schema::dropIfExists('countries');
     }
 };

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Users;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -11,8 +12,14 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('admin.users.index');
+        //     abort_unless(auth()->guard('admin')->user()->can('user.view'), 403);
+        $countries = Country::all();
+        return view('admin.users.index', compact('countries'));
     }
+    // public function index()
+    // {
+    //     return view('admin.users.index');
+    // }
 
     public function getdata(Request $request)
     {

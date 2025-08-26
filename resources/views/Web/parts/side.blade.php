@@ -1,70 +1,22 @@
-<aside class="sidebar-wrapper" data-simplebar="true">
-    <div class="sidebar-header">
-      <div>
-        <img src="{{ asset('admin_assets_rtl/images/logo-icon.png')}}" class="logo-icon" alt="logo icon">
-      </div>
-      <div>
-        <h4 class="logo-text">منصة العمل الحر</h4>
-      </div>
-      <div class="toggle-icon ms-auto"> <i class="bi bi-list"></i>
-      </div>
-    </div>
-    <!--navigation-->
-    <ul class="metismenu" id="menu">
-      <li class="menu-label">@lang('المستخدمين')</li>
-      <li>
-        <a href="javascript:;" class="has-arrow">
-          <div class="parent-icon"><i class="lni lni-users"></i>
-          </div>
-          <div class="menu-title">@lang('أدارة مستخدمين المنصة')</div>
-        </a>
-        <ul>
-            <li>
-            <a href="{{ route('admin.user.index') }}">
-                <i class="bi bi-circle"></i>
-                 @lang('العملاء')
-            </a>
-            </li>
-            <li>
-                <a href="">
-                    <i class="bi bi-circle"></i>
-                     @lang('المستقلون')
-                </a>
-                </li>
-        </ul>
-      </li>
-
-      <li class="menu-label">@lang('المستخدمين')</li>
-
-      <li>
-        <a href="javascript:;" class="has-arrow">
-          <div class="parent-icon"><i class="lni lni-users"></i>
-          </div>
-          <div class="menu-title">@lang('إدارة  التسجيل ')</div>
-        </a>
-        <ul>
-            <li>
-                <a  onclick="event.preventDefault(); document.getElementById('logout-form').submit()" class="btn btn-danger btn-block">تسجيل الخروج</a>
-      <form id="logout-form" action="{{ route('logout') }}" method="POST">
-        @csrf
-        {{-- <button class="btn btn-danger btn-block">Logout</button> --}}
-    </form>
-            </li>
-
-        </ul>
-      </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </ul>
- </aside>
+<!-- الشريط الجانبي -->
+ <div class="profile-sidebar">
+     <div class="sidebar-card">
+         <h3 class="sidebar-title"><i class="fas fa-bars"></i> القائمة الرئيسية</h3>
+         <ul class="sidebar-menu">
+             <li><a href="{{ route('web.dashboard') }}" class="{{ Route::is('web.dashboard') ? 'active' : '' }}"><i
+                         class="fas fa-user-circle"></i> الملف الشخصي</a></li>
+             <li><a href="{{ route('web.project.index') }}" class="{{ Route::is('web.project.index') ? 'active' : '' }}"><i
+                         class="fas fa-project-diagram"></i> مشاريعي</a></li>
+             <li><a href="#" class="{{ Route::is('dashboard') ? 'active' : '' }}"><i
+                         class="fas fa-comments"></i> المحادثات</a></li>
+             <li><a href="#" class="{{ Route::is('dashboard') ? 'active' : '' }}"><i class="fas fa-heart"></i>
+                     المشاريع المفضلة</a></li>
+             <li><a href="#" class="{{ Route::is('dashboard') ? 'active' : '' }}"><i class="fas fa-bell"></i>
+                     الإشعارات</a></li>
+             <li><a href="#" class="{{ Route::is('dashboard') ? 'active' : '' }}"><i class="fas fa-cog"></i>
+                     الإعدادات</a></li>
+             <li><a href="#" class="{{ Route::is('dashboard') ? 'active' : '' }}"><i
+                         class="fas fa-sign-out-alt"></i> تسجيل الخروج</a></li>
+         </ul>
+     </div>
+ </div>

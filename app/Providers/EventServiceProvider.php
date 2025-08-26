@@ -21,9 +21,9 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
 
-        TextRequested::class => [
-            DispatchTextMailNotification::class,
-        ]
+        \App\Events\TextRequested::class => [
+            \App\Listeners\DispatchTextMailNotification::class,
+        ],
     ];
 
     /**

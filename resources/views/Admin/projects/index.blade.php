@@ -200,7 +200,7 @@
                     <table id="projects-table" class="table align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th>#</th>
+                                {{-- <th>#</th> --}}
                                 <th>العنوان</th>
                                 <th>المستخدم</th>
                                 <th>الميزانية</th>
@@ -231,7 +231,7 @@
                 }
             },
             columns: [
-                { data: 'id', name: 'id' },
+                // { data: 'id', name: 'id' },
                 { data: 'title', name: 'title' },
                 { data: 'user', name: 'user' },
                 { data: 'budget', name: 'budget' },
@@ -293,7 +293,7 @@
     }
     function viewProjectById(id) {
     $.ajax({
-        url: '{{ route("admin.projects.show") }}',
+        url: '{{ route("admin.projects.getdata") }}',
         method: 'GET',
         data: { id: id },
         success: function (response) {

@@ -116,7 +116,7 @@
                                         <input type="checkbox" id="contentWriting">
                                         <label for="contentWriting">كتابة المحتوى</label>
                                     </div>
-                                    <div class="category-item">
+                                    {{-- <div class="category-item">
                                         <input type="checkbox" id="marketing">
                                         <label for="marketing">التسويق الرقمي</label>
                                     </div>
@@ -131,7 +131,7 @@
                                     <div class="category-item">
                                         <input type="checkbox" id="seo">
                                         <label for="seo">تحسين محركات البحث</label>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
 
@@ -208,6 +208,7 @@
                         <button type="button" class="btn-nav btn-next" id="nextBtn">
                             التالي <i class="fas fa-arrow-left"></i>
                         </button>
+                        <br><br><br>
                         <button type="submit" class="btn-register" id="submitBtn" style="display:none;">
                             <i class="fas fa-user-plus"></i> إنشاء حساب جديد
                         </button>

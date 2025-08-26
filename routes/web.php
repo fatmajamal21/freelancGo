@@ -15,18 +15,57 @@ use App\Http\Controllers\Admin\Verification\FreelancerrVerificationController;
 use App\Http\Controllers\Admin\Verification\FreelancerVerificationController;
 use App\Http\Controllers\Admin\Verification\UesrVerificationController;
 use App\Http\Controllers\Admin\Verification\UserVerificationController;
+use App\Http\Controllers\Web\Projects\ProjectController as ProjectsProjectController;
 use Spatie\Permission\Models\Permission;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Web\UserController as WebUserController;
 
 Route::get('/{guard}/verify-email', [EmailVerificationController::class, 'verify'])->name('verification.verify')->where('guard', 'web|freelancer');
 
+
+// dashboard admin routes :
+Route::prefix('admin/')->name('admin.')->middleware(['auth:admin'])->group(function () {
+    // 5 routes : index | getdata | store | update | delete
+    Route::dataTableRoutesMacro('texts/', TextMailController::class, 'text');
+    Route::dataTableRoutesMacro('permissions/', PermissionController::class, 'permission');
+    Route::dataTableRoutesMacro('roles/', RoleController::class, 'role');
+    Route::dataTableRoutesMacro('admins/', AdminController::class, 'admin');
+    Route::dataTableRoutesMacro('users/', UserController::class, 'user');
+    Route::dataTableRoutesMacro('freelancers/', FreelancerController::class, 'freelancer');
+});
+
+
+
+
+// Route::name('web.')->middleware(['auth:web'])->group(function () {
+//     Route::prefix('profile')->controller(WebUserController::class)->name('profile.')->group(function () {
+//         Route::get('/', 'showProfile')->name('show');
+//         Route::post('update', 'update')->name('update')->defaults('guard', 'web');
+//         Route::post('avatar', 'updateAvatar')->name('avatar.update');
+//         Route::post('password', 'changePassword')->name('password.change');
+//         Route::delete('delete', 'deleteAccount')->name('delete');
+//     });
+
+//     Route::dataTableRoutesMacro('projects/', ProjectController::class, 'project');
+// });
+
+
+
+// // auth macro routes :
+// Route::authGuard('', 'web', 'web');
+// Route::authGuard('freelancer', 'freelancer', 'freelancer');
+// Route::authGuard('admin', 'admin', 'admin', ['register' => false]);
+
+
+
+
+
+// //ودي السابق
+Route::get('/{guard}/verify-email', [EmailVerificationController::class, 'verify'])->name('verification.verify')->where('guard', 'web|freelancer');
 Route::get('confirm', function () {
     return 'تحقق من البريد يا شاطر';
 })->name('con');
-
-
-
 
 Route::get('file', function () {
     return view('file');
@@ -55,7 +94,43 @@ Route::post('file', function (Request $request) {
     return redirect()->route('file')->with('success', 'تم تخزين الصورة بنجاح');
 });
 
+// clinet
+// Route::name('web.')->middleware(['auth:web'])->group(function () {
+//     Route::prefix('profile')->controller(WebUserController::class)->name('profile.')->group(function () {
+//         Route::post('update', 'update')->name('update')->defaults('guard', 'web');
+//     });
 
+//     Route::dataTableRoutesMacro('projects/', ProjectController::class, 'project');
+// });
+
+
+Route::prefix('web')->name('web.')->middleware('auth:web')->group(function () {
+    // Dashboard Route
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Profile Routes
+    Route::prefix('profile')->name('profile.')->controller(WebUserController::class)->group(function () {
+        Route::get('/', 'showProfile')->name('show');
+        Route::post('/update', 'update')->name('update');
+        Route::post('/avatar', 'updateAvatar')->name('avatar.update');
+        Route::post('/password', 'changePassword')->name('password.change');
+    });
+
+    // Projects Routes
+    Route::prefix('projects')->name('projects.')->controller(ProjectsProjectController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/getdata', 'getdata')->name('getdata');
+        Route::post('/store', 'store')->name('store');
+        Route::post('/update', 'update')->name('update');
+        Route::post('/delete', 'delete')->name('delete');
+    });
+
+    // Proposals Routes
+    Route::prefix('proposals')->name('proposals.')->controller(\App\Http\Controllers\Admin\ProposalController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/{id}', 'show')->name('show');
+    });
+});
 
 
 
@@ -67,7 +142,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
 
     Route::get('/texts', [TextMailController::class, 'index'])->name('text.index');
     Route::post('/texts', [TextMailController::class, 'store'])->name('text.store');
-
 
 
     // لإحضار المستخدمين للجدول

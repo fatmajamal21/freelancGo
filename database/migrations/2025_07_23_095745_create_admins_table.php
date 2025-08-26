@@ -13,13 +13,10 @@ return new class extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('email')->unique();
             $table->string('password');
             $table->string('phone')->nullable();
-            $table->string('verification_token', 100)->nullable()->unique();
-            $table->timestamp('verification_token_send_at')->nullable();
-            $table->timestamp('verification_token_sent_at')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });
