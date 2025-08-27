@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Notifications\VerifyEmailNotifcation;
 use App\Notifications\VerifyEmailNotification;
 use Illuminate\Auth\Notifications\VerifyEmail;
@@ -225,6 +226,7 @@ class AuthController extends Controller
 
     function login(Request $request)
     {
+        //  dd($request->all());
         $guard = $request->route('guard');
         $data = $request->validate([
             'email' => ['required', 'email'],
@@ -277,8 +279,10 @@ class AuthController extends Controller
 
     function dashboard(Request $request)
     {
+        $user = auth()->guard('web')->user();
+        $countries = Country::all();
         $guard = $request->route('guard');
-        return view($guard . '.dashboard', compact('guard'));
+        return view($guard . '.dashboard', compact('guard', 'user', 'countries'));
     }
 
     public function indexForgetPassword(Request $request)

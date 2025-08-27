@@ -15,7 +15,8 @@ use App\Http\Controllers\Admin\Verification\FreelancerrVerificationController;
 use App\Http\Controllers\Admin\Verification\FreelancerVerificationController;
 use App\Http\Controllers\Admin\Verification\UesrVerificationController;
 use App\Http\Controllers\Admin\Verification\UserVerificationController;
-use App\Http\Controllers\Web\Projects\ProjectController as ProjectsProjectController;
+use App\Http\Controllers\Web\DashboardController;
+use App\Http\Controllers\Web\Projects\ProjectController as projectUserController;
 use Spatie\Permission\Models\Permission;
 use App\Models\Admin;
 use Illuminate\Http\Request;
@@ -117,7 +118,7 @@ Route::prefix('web')->name('web.')->middleware('auth:web')->group(function () {
     });
 
     // Projects Routes
-    Route::prefix('projects')->name('projects.')->controller(ProjectsProjectController::class)->group(function () {
+    Route::prefix('projects')->name('projects.')->controller(projectUserController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/getdata', 'getdata')->name('getdata');
         Route::post('/store', 'store')->name('store');

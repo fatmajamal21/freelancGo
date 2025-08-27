@@ -7,18 +7,12 @@ use App\Models\Country;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Throwable;
 
 class UserController extends Controller
 {
-    public function showProfile()
-    {
-        $user = Auth::user();
-        $countries = Country::all();
-        $reg_date = $user->created_at->format('Y-m-d');
 
-        return view('profile', compact('user', 'countries', 'reg_date'));
-    }
 
     public function update(Request $request)
     {
