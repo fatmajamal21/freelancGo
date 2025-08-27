@@ -105,35 +105,42 @@ Route::post('file', function (Request $request) {
 // });
 
 
-Route::prefix('web')->name('web.')->middleware('auth:web')->group(function () {
-    // Dashboard Route
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// Route::prefix('web')->name('web.')->middleware('auth:web')->group(function () {
+//     // Dashboard Route
+//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Profile Routes
-    Route::prefix('profile')->name('profile.')->controller(WebUserController::class)->group(function () {
-        Route::get('/', 'showProfile')->name('show');
-        Route::post('/update', 'update')->name('update');
-        Route::post('/avatar', 'updateAvatar')->name('avatar.update');
-        Route::post('/password', 'changePassword')->name('password.change');
+//     // Profile Routes
+//     Route::prefix('profile')->name('profile.')->controller(WebUserController::class)->group(function () {
+//         Route::get('/', 'showProfile')->name('show');
+//         Route::post('/update', 'update')->name('update');
+//         Route::post('/avatar', 'updateAvatar')->name('avatar.update');
+//         Route::post('/password', 'changePassword')->name('password.change');
+//     });
+
+//     // Projects Routes
+//     Route::prefix('projects')->name('projects.')->controller(projectUserController::class)->group(function () {
+//         Route::get('/', 'index')->name('index');
+//         Route::get('/getdata', 'getdata')->name('getdata');
+//         Route::post('/store', 'store')->name('store');
+//         Route::post('/update', 'update')->name('update');
+//         Route::post('/delete', 'delete')->name('delete');
+//     });
+
+//     // Proposals Routes
+//     Route::prefix('proposals')->name('proposals.')->controller(\App\Http\Controllers\Admin\ProposalController::class)->group(function () {
+//         Route::get('/', 'index')->name('index');
+//         Route::get('/{id}', 'show')->name('show');
+//     });
+// });
+
+// clinet
+Route::name('web.')->middleware(['auth:web'])->group(function () {
+    Route::prefix('profile')->controller(WebUserController::class)->name('profile.')->group(function () {
+        Route::post('update', 'update')->name('update')->defaults('guard', 'web');
     });
 
-    // Projects Routes
-    Route::prefix('projects')->name('projects.')->controller(projectUserController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/getdata', 'getdata')->name('getdata');
-        Route::post('/store', 'store')->name('store');
-        Route::post('/update', 'update')->name('update');
-        Route::post('/delete', 'delete')->name('delete');
-    });
-
-    // Proposals Routes
-    Route::prefix('proposals')->name('proposals.')->controller(\App\Http\Controllers\Admin\ProposalController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/{id}', 'show')->name('show');
-    });
+    Route::dataTableRoutesMacro('projects/', projectUserController::class, 'project');
 });
-
-
 
 // Routes for admin dashboard
 Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function () {
