@@ -3,10 +3,17 @@
      <div class="sidebar-card">
          <h3 class="sidebar-title"><i class="fas fa-bars"></i> القائمة الرئيسية</h3>
          <ul class="sidebar-menu">
-             <li><a href="{{ route('web.dashboard') }}" class="{{ Route::is('web.dashboard') ? 'active' : '' }}"><i
-                         class="fas fa-user-circle"></i> الملف الشخصي</a></li>
-             <li><a href="{{ route('web.dashboard.project.index') }}" class="{{ Route::is('web.project.index') ? 'active' : '' }}"><i
-                         class="fas fa-project-diagram"></i> مشاريعي</a></li>
+          <li>
+    <a href="{{ route('freelancer.dashboard') }}" class="{{ Route::is('freelancer.dashboard') ? 'active' : '' }}">
+        <i class="fas fa-user-circle"></i> الملف الشخصي
+    </a>
+</li>
+<li>
+    <a href="{{ route('freelancer.dashboard.projects') }}" 
+       class="{{ Route::is('freelancer.dashboard.projects') ? 'active' : '' }}">
+        <i class="fas fa-project-diagram"></i> مشاريعي
+    </a>
+</li>
              <li><a href="#" class="{{ Route::is('dashboard') ? 'active' : '' }}"><i
                          class="fas fa-comments"></i> المحادثات</a></li>
              <li><a href="#" class="{{ Route::is('dashboard') ? 'active' : '' }}"><i class="fas fa-heart"></i>

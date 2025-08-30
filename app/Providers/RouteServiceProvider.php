@@ -46,6 +46,7 @@ class RouteServiceProvider extends ServiceProvider
             Route::prefix($prefix)->controller(AuthController::class)->name($name . '.')->group(function () use ($guard, $options) {
 
                 Route::middleware('guest:' . $guard)->group(function () use ($guard, $options) {
+
                     Route::get('login',  'indexLogin')->name('login')->defaults('guard', $guard);
                     Route::post('login',  'login')->name('login.submit')->defaults('guard', $guard);
 
@@ -79,7 +80,6 @@ class RouteServiceProvider extends ServiceProvider
         Route::macro('dataTableRoutesMacro', function (string $prefix, $controller,  string $name,) {
             Route::prefix($prefix)->controller($controller)->name($name . '.')->group(function () {
                 Route::get('/', 'index')->name('index');
-                Route::get('/panel', ' panel ')->name('dashboardadmin');
                 Route::get('/getdata', 'getdata')->name('getdata');
                 Route::post('/store', 'store')->name('store');
                 Route::post('/update', 'update')->name('update');

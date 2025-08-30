@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Country;
+use App\Models\Freelancer;
 use App\Notifications\VerifyEmailNotifcation;
 use App\Notifications\VerifyEmailNotification;
+use Carbon\Carbon;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -279,10 +281,19 @@ class AuthController extends Controller
 
     function dashboard(Request $request)
     {
-        $user = auth()->guard('web')->user();
-        $countries = Country::all();
         $guard = $request->route('guard');
-        return view($guard . '.dashboard', compact('guard', 'user', 'countries'));
+        $user = auth()->guard($guard)->user();
+
+        // احصل على بيانات الفريلانسر من جدول freelancers
+        $freelancer = Freelancer::where('email', $user->email)->first();
+
+        // إذا لم يتم العثور على freelancer، أنشئ واحداً جديداً (اختياري)
+
+
+        $countries = Country::all();
+        // $reg_date = Carbon::parse($freelancer->registration_date)->locale('ar')->translatedFormat('j F Y');
+
+        return view($guard . '.dashboard', compact('guard', 'user', 'freelancer',  'countries'));
     }
 
     public function indexForgetPassword(Request $request)

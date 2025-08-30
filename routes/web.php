@@ -7,7 +7,6 @@ use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\Role\RoleController;
 use App\Http\Controllers\Admin\Text\TextMail;
 use App\Http\Controllers\Admin\Text\TextMailController;
@@ -21,6 +20,9 @@ use Spatie\Permission\Models\Permission;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Web\UserController as WebUserController;
+use App\Http\Controllers\Admin\Projects\ProjectController as ProjectsProjectController;
+use App\Http\Controllers\Site\Projects\ProjectController as SiteProjectsProjectController;
+use App\Http\Controllers\Web\Projects\ProjectController;
 
 Route::get('/{guard}/verify-email', [EmailVerificationController::class, 'verify'])->name('verification.verify')->where('guard', 'web|freelancer');
 
@@ -95,6 +97,67 @@ Route::post('file', function (Request $request) {
     return redirect()->route('file')->with('success', 'تم تخزين الصورة بنجاح');
 });
 
+
+
+
+
+
+
+// auth macro routes :
+Route::authGuard('', 'web', 'web');
+Route::authGuard('freelancer', 'freelancer', 'freelancer');
+Route::authGuard('admin', 'admin', 'admin', ['register' => false]);
+
+
+// dashboard admin routes :
+Route::prefix('admin/')->name('admin.')->middleware(['auth:admin'])->group(function () {
+    // 5 routes : index | getdata | store | update | delete
+    Route::dataTableRoutesMacro('texts/', TextMailController::class, 'text');
+    Route::dataTableRoutesMacro('permissions/', PermissionController::class, 'permission');
+    Route::dataTableRoutesMacro('roles/', RoleController::class, 'role');
+    Route::dataTableRoutesMacro('admins/', AdminController::class, 'admin');
+    Route::dataTableRoutesMacro('users/', UserController::class, 'user');
+    Route::dataTableRoutesMacro('freelancers/', FreelancerController::class, 'freelancer');
+    Route::dataTableRoutesMacro('projects/', SiteProjectsProjectController::class, 'project');
+    // Route::dataTableRoutesMacro('skills/', ProjectsProjectController::class, 'skill');
+});
+
+Route::prefix('freelancer/')->name('freelancer.')->middleware(['auth:freelancer'])->group(function () {
+
+
+    Route::prefix('dashboard')->name('dashboard.')->group(function () {
+        Route::controller(SiteProjectsProjectController::class)->group(function () {
+            // قائمة المشاريع
+            Route::get('projects', 'index')->name('projects')->defaults('guard', 'freelancer');
+            // تفاصيل المشروع
+            Route::get('project/{id}', 'projectDetails')->name('project.details')->defaults('guard', 'freelancer');
+        });
+    });
+});
+
+// clinet
+Route::name('web.')->middleware(['auth:web'])->group(function () {
+    Route::prefix('dashboard')->name('dashboard.')->group(function () {
+        Route::prefix('profile')->controller(WebUserController::class)->name('profile.')->group(function () {
+            Route::post('update', 'update')->name('update')->defaults('guard', 'web');
+        });
+        Route::dataTableRoutesMacro('projects/', ProjectController::class, 'project');
+    });
+
+    Route::controller(SiteProjectsProjectController::class)->group(function () {
+        Route::get('projects', 'index')->name('index')->defaults('guard', 'web');
+        Route::get('project/{id}',  'projectDetails')->name('offer')->defaults('guard', 'web');
+    });
+});
+
+Route::get('rediract', function () {
+    return redirect()->route('web.login');
+})->name('rediract');
+
+
+
+
+
 // clinet
 // Route::name('web.')->middleware(['auth:web'])->group(function () {
 //     Route::prefix('profile')->controller(WebUserController::class)->name('profile.')->group(function () {
@@ -134,126 +197,126 @@ Route::post('file', function (Request $request) {
 // });
 
 // clinet
-Route::name('web.')->middleware(['auth:web'])->group(function () {
-    Route::prefix('profile')->controller(WebUserController::class)->name('profile.')->group(function () {
-        Route::post('update', 'update')->name('update')->defaults('guard', 'web');
-    });
+// Route::name('web.')->middleware(['auth:web'])->group(function () {
+//     Route::prefix('profile')->controller(WebUserController::class)->name('profile.')->group(function () {
+//         Route::post('update', 'update')->name('update')->defaults('guard', 'web');
+//     });
 
-    Route::dataTableRoutesMacro('projects/', projectUserController::class, 'project');
-});
+//     Route::dataTableRoutesMacro('projects/', projectUserController::class, 'project');
+// });
 
-// Routes for admin dashboard
-Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function () {
-    // Dashboard Route
-    Route::get('/panel', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboardadmin');
-
-
-    Route::get('/texts', [TextMailController::class, 'index'])->name('text.index');
-    Route::post('/texts', [TextMailController::class, 'store'])->name('text.store');
+// // Routes for admin dashboard
+// Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function () {
+//     // Dashboard Route
+//     Route::get('/panel', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboardadmin');
 
 
-    // لإحضار المستخدمين للجدول
-    Route::get('/users/data', [TextMailController::class, 'getdata'])->name('user.getdata');
+//     Route::get('/texts', [TextMailController::class, 'index'])->name('text.index');
+//     Route::post('/texts', [TextMailController::class, 'store'])->name('text.store');
 
 
-    // Route::prefix('texts/')->controller(TextMailController::class)->name('text.')->group(function () {
-    //     Route::get('/', 'index')->name('index');
-    //     Route::get('/getdata', 'getdata')->name('getdata');
-    //     Route::post('/store', 'store')->name('store');
-    //     Route::post('/update', 'update')->name('update');
-    //     Route::post('/delete', 'delete')->name('delete');
-    // });
+//     // لإحضار المستخدمين للجدول
+//     Route::get('/users/data', [TextMailController::class, 'getdata'])->name('user.getdata');
 
-    // Permissions Routes
-    Route::prefix('permissions/')->controller(PermissionController::class)->name('permission.')->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/getdata', 'getdata')->name('getdata');
-        Route::post('/store', 'store')->name('store');
-        Route::post('/update', 'update')->name('update');
-        Route::post('/delete', 'delete')->name('delete');
-    });
 
-    // Roles Routes
-    Route::prefix('roles/')->controller(RoleController::class)->name('role.')->group(function () {
-        // Route to get role data for editing (including guards and permissions)
-        Route::get('/{id}/edit')->name('edit');
+//     // Route::prefix('texts/')->controller(TextMailController::class)->name('text.')->group(function () {
+//     //     Route::get('/', 'index')->name('index');
+//     //     Route::get('/getdata', 'getdata')->name('getdata');
+//     //     Route::post('/store', 'store')->name('store');
+//     //     Route::post('/update', 'update')->name('update');
+//     //     Route::post('/delete', 'delete')->name('delete');
+//     // });
 
-        Route::get('/', 'index')->name('index');
-        Route::get('/getdata', 'getdata')->name('getdata');
-        Route::post('/store', 'store')->name('store');
-        Route::post('/update', 'update')->name('update');
-        Route::post('/delete', 'delete')->name('delete');
-    });
+//     // Permissions Routes
+//     Route::prefix('permissions/')->controller(PermissionController::class)->name('permission.')->group(function () {
+//         Route::get('/', 'index')->name('index');
+//         Route::get('/getdata', 'getdata')->name('getdata');
+//         Route::post('/store', 'store')->name('store');
+//         Route::post('/update', 'update')->name('update');
+//         Route::post('/delete', 'delete')->name('delete');
+//     });
 
-    // Verification - Freelancers
-    Route::prefix('verification/freelancers')->name('verification.freelancers.')->controller(FreelancerVerificationController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::post('/store', 'store')->name('store');
-        Route::post('/update', 'update')->name('update');
-        Route::get('/getdata', 'getdata')->name('getdata');
-        Route::post('/toggle', 'toggle')->name('toggle');
-        Route::post('/delete', 'delete')->name('delete');
-    });
+//     // Roles Routes
+//     Route::prefix('roles/')->controller(RoleController::class)->name('role.')->group(function () {
+//         // Route to get role data for editing (including guards and permissions)
+//         Route::get('/{id}/edit')->name('edit');
 
-    // Verification - Users
-    Route::prefix('verification/users')->name('verification.users.')->controller(UserVerificationController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::post('/store', 'store')->name('store');
-        Route::post('/update', 'update')->name('update');
-        Route::get('/getdata', 'getdata')->name('getdata');
-        Route::post('/toggle', 'toggle')->name('toggle');
-        Route::post('/delete', 'delete')->name('delete');
-    });
+//         Route::get('/', 'index')->name('index');
+//         Route::get('/getdata', 'getdata')->name('getdata');
+//         Route::post('/store', 'store')->name('store');
+//         Route::post('/update', 'update')->name('update');
+//         Route::post('/delete', 'delete')->name('delete');
+//     });
 
-    // Admins Routes
-    Route::prefix('admins')->name('admins.')->controller(AdminController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/getdata', 'getdata')->name('getdata');
-        Route::post('/store', 'store')->name('store');
-        Route::post('/update', 'update')->name('update');
-        Route::post('/delete', 'delete')->name('delete');
-    });
+//     // Verification - Freelancers
+//     Route::prefix('verification/freelancers')->name('verification.freelancers.')->controller(FreelancerVerificationController::class)->group(function () {
+//         Route::get('/', 'index')->name('index');
+//         Route::post('/store', 'store')->name('store');
+//         Route::post('/update', 'update')->name('update');
+//         Route::get('/getdata', 'getdata')->name('getdata');
+//         Route::post('/toggle', 'toggle')->name('toggle');
+//         Route::post('/delete', 'delete')->name('delete');
+//     });
 
-    // Users Routes
-    Route::prefix('users')->name('users.')->controller(UserController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/getdata', 'getdata')->name('getdata');
-        Route::post('/store', 'store')->name('store');
-        Route::post('/update', 'update')->name('update');
-        Route::post('/delete', 'delete')->name('delete');
-    });
+//     // Verification - Users
+//     Route::prefix('verification/users')->name('verification.users.')->controller(UserVerificationController::class)->group(function () {
+//         Route::get('/', 'index')->name('index');
+//         Route::post('/store', 'store')->name('store');
+//         Route::post('/update', 'update')->name('update');
+//         Route::get('/getdata', 'getdata')->name('getdata');
+//         Route::post('/toggle', 'toggle')->name('toggle');
+//         Route::post('/delete', 'delete')->name('delete');
+//     });
 
-    // Freelancers Routes
-    Route::prefix('freelancers')->name('freelancers.')->controller(FreelancerController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/getdata', 'getdata')->name('getdata');
-        Route::post('/store', 'store')->name('store');
-        Route::post('/update', 'update')->name('update');
-        Route::post('/delete', 'delete')->name('delete');
-    });
+//     // Admins Routes
+//     Route::prefix('admins')->name('admins.')->controller(AdminController::class)->group(function () {
+//         Route::get('/', 'index')->name('index');
+//         Route::get('/getdata', 'getdata')->name('getdata');
+//         Route::post('/store', 'store')->name('store');
+//         Route::post('/update', 'update')->name('update');
+//         Route::post('/delete', 'delete')->name('delete');
+//     });
 
-    // Projects Routes
-    Route::prefix('projects')->name('projects.')->controller(ProjectController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/getdata', 'getdata')->name('getdata');
-        Route::post('/store', 'store')->name('store');
-        Route::post('/update', 'update')->name('update');
-        Route::post('/delete', 'delete')->name('delete');
-    });
+//     // Users Routes
+//     Route::prefix('users')->name('users.')->controller(UserController::class)->group(function () {
+//         Route::get('/', 'index')->name('index');
+//         Route::get('/getdata', 'getdata')->name('getdata');
+//         Route::post('/store', 'store')->name('store');
+//         Route::post('/update', 'update')->name('update');
+//         Route::post('/delete', 'delete')->name('delete');
+//     });
 
-    // Proposals Routes
-    Route::prefix('proposals')->name('proposals.')->controller(\App\Http\Controllers\Admin\ProposalController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/{id}', 'show')->name('show');
-    });
-});
+//     // Freelancers Routes
+//     Route::prefix('freelancers')->name('freelancers.')->controller(FreelancerController::class)->group(function () {
+//         Route::get('/', 'index')->name('index');
+//         Route::get('/getdata', 'getdata')->name('getdata');
+//         Route::post('/store', 'store')->name('store');
+//         Route::post('/update', 'update')->name('update');
+//         Route::post('/delete', 'delete')->name('delete');
+//     });
 
-// Route to get guards
-Route::get('/admin/guards', function () {
-    return response()->json(['admin', 'web']);  // إرجاع قائمة المستحقين المتاحة
-})->name('admin.role.getGuards');
+//     // Projects Routes
+//     Route::prefix('projects')->name('projects.')->controller(ProjectController::class)->group(function () {
+//         Route::get('/', 'index')->name('index');
+//         Route::get('/getdata', 'getdata')->name('getdata');
+//         Route::post('/store', 'store')->name('store');
+//         Route::post('/update', 'update')->name('update');
+//         Route::post('/delete', 'delete')->name('delete');
+//     });
 
-// Authentication routes
-Route::authGuard('', 'web', 'web');
-Route::authGuard('freelancer', 'freelancer', 'freelancer');
-Route::authGuard('admin', 'admin', 'admin', ['register' => false]);
+//     // Proposals Routes
+//     Route::prefix('proposals')->name('proposals.')->controller(\App\Http\Controllers\Admin\ProposalController::class)->group(function () {
+//         Route::get('/', 'index')->name('index');
+//         Route::get('/{id}', 'show')->name('show');
+//     });
+// });
+
+// // Route to get guards
+// Route::get('/admin/guards', function () {
+//     return response()->json(['admin', 'web']);  // إرجاع قائمة المستحقين المتاحة
+// })->name('admin.role.getGuards');
+
+// // Authentication routes
+// Route::authGuard('', 'web', 'web');
+// Route::authGuard('freelancer', 'freelancer', 'freelancer');
+// Route::authGuard('admin', 'admin', 'admin', ['register' => false]);
